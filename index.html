@@ -54,21 +54,22 @@
 <body class="selection:bg-ink selection:text-milk">
 
     <!-- 1. ШАПКА: ТОЛЬКО НАЗВАНИЕ И ПЕРЕКЛЮЧАТЕЛЬ KZ / RU / EN -->
-    <header class="border-b border-stoneborder sticky top-0 z-40 bg-milk/95 backdrop-blur-sm">
-        <div class="max-w-5xl mx-auto px-6 py-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-            <h1 id="header-title" class="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold uppercase tracking-tight text-ink leading-tight">
-                Космические теории человечества
-            </h1>
-            <!-- Переключатель языка KZ / RU / EN -->
-            <div class="inline-flex border border-stoneborder text-xs font-mono tracking-wider uppercase select-none w-fit">
-                <button type="button" onclick="setLanguage('kz')" id="btn-kz" class="lang-btn px-4 py-2 hover:bg-stoneborder/40 transition-colors">KZ</button>
-                <div class="w-px bg-stoneborder"></div>
-                <button type="button" onclick="setLanguage('ru')" id="btn-ru" class="lang-btn active px-4 py-2 hover:bg-stoneborder/40 transition-colors">RU</button>
-                <div class="w-px bg-stoneborder"></div>
-                <button type="button" onclick="setLanguage('en')" id="btn-en" class="lang-btn px-4 py-2 hover:bg-stoneborder/40 transition-colors">EN</button>
-            </div>
+<header class="border-b border-stoneborder sticky top-0 z-40 bg-milk/95 backdrop-blur-sm">
+    <div class="max-w-5xl mx-auto px-6 py-3 flex items-center justify-between gap-4">
+        <h1 id="header-title" class="text-lg sm:text-xl font-serif font-bold uppercase tracking-tight text-ink leading-tight">
+            Космические теории человечества
+        </h1>
+        <!-- Переключатель языка KZ / RU / EN -->
+        <div class="inline-flex border border-stoneborder text-xs font-mono tracking-wider uppercase select-none w-fit">
+            <button type="button" onclick="setLanguage('kz')" id="btn-kz" class="lang-btn px-2.5 py-1 hover:bg-stoneborder/40 transition-colors">KZ</button>
+            <div class="w-px bg-stoneborder"></div>
+            <button type="button" onclick="setLanguage('ru')" id="btn-ru" class="lang-btn active px-2.5 py-1 hover:bg-stoneborder/40 transition-colors">RU</button>
+            <div class="w-px bg-stoneborder"></div>
+            <button type="button" onclick="setLanguage('en')" id="btn-en" class="lang-btn px-2.5 py-1 hover:bg-stoneborder/40 transition-colors">EN</button>
         </div>
-    </header>
+    </div>
+</header>
+
 
     <!-- ОСНОВНОЙ НАУЧНЫЙ МАТЕРИАЛ -->
     <main class="max-w-5xl mx-auto px-6 pt-16 pb-24">
@@ -88,7 +89,7 @@
             <div class="max-w-4xl mx-auto">
                 <!-- Центральное ядро -->
                 <div class="bg-parchment p-6 text-center max-w-md mx-auto border border-stoneborder">
-                    <span data-i18n="core_label" class="text-[11px] font-mono uppercase tracking-widest text-inkmuted block mb-1">Центральное ядро</span>
+                    <span data-i18n="core_label" class="text-[11px] font-mono uppercase tracking-widest text-inkmuted block mb-1"></span>
                     <h3 data-i18n="core_title" class="text-xl sm:text-2xl font-serif font-bold uppercase text-ink">
                         Космическая теория
                     </h3>
@@ -109,7 +110,7 @@
                     <!-- Ответвление 1 -->
                     <div class="bg-parchment p-6 border border-stoneborder flex flex-col justify-between">
                         <div>
-                            <span data-i18n="branch1_num" class="text-xs font-mono uppercase tracking-widest text-inkmuted block mb-2">Направление I</span>
+                            <span data-i18n="branch1_num" class="text-xs font-mono uppercase tracking-widest text-inkmuted block mb-2"></span>
                             <h4 data-i18n="branch1_name" class="font-serif font-bold text-xl uppercase mb-3">Теория панспермии</h4>
                             <p data-i18n="branch1_desc" class="text-xs text-inkmuted leading-relaxed">
                                 Занесение первичных органических матриц, аминокислот и протоклеток метеоритами и кометами как экзогенный фундамент биосферы Земли.
@@ -123,7 +124,7 @@
                     <!-- Ответвление 2 -->
                     <div class="bg-parchment p-6 border border-stoneborder flex flex-col justify-between">
                         <div>
-                            <span data-i18n="branch2_num" class="text-xs font-mono uppercase tracking-widest text-inkmuted block mb-2">Направление II</span>
+                            <span data-i18n="branch2_num" class="text-xs font-mono uppercase tracking-widest text-inkmuted block mb-2"></span>
                             <h4 data-i18n="branch2_name" class="font-serif font-bold text-xl uppercase mb-3">Палеовизит</h4>
                             <p data-i18n="branch2_desc" class="text-xs text-inkmuted leading-relaxed">
                                 Концепция искусственного вмешательства: целенаправленная генетическая трансформация гоминид высокоразвитой внеземной цивилизацией.
@@ -137,7 +138,7 @@
                     <!-- Ответвление 3 -->
                     <div class="bg-parchment p-6 border border-stoneborder flex flex-col justify-between">
                         <div>
-                            <span data-i18n="branch3_num" class="text-xs font-mono uppercase tracking-widest text-inkmuted block mb-2">Направление III</span>
+                            <span data-i18n="branch3_num" class="text-xs font-mono uppercase tracking-widest text-inkmuted block mb-2"></span>
                             <h4 data-i18n="branch3_name" class="font-serif font-bold text-xl uppercase mb-3">Космическая эволюция и биосферная связь</h4>
                             <p data-i18n="branch3_desc" class="text-xs text-inkmuted leading-relaxed">
                                 Человек как органический продукт целостной биосферы, чье видообразование управлялось солнечной активностью, космическими лучами и вселенскими ритмами.
@@ -156,7 +157,7 @@
         <!-- ТЕОРИЯ 1: ПАНСПЕРМИЯ -->
         <article id="theory-panspermia" class="mb-24 pt-10 border-t-2 border-ink">
             <header class="mb-8 pb-4 border-b border-stoneborder">
-                <span data-i18n="t1_badge" class="text-xs font-mono uppercase tracking-widest text-inkmuted block mb-1">Исследовательский раздел I</span>
+                <span data-i18n="t1_badge" class="text-xs font-mono uppercase tracking-widest text-inkmuted block mb-1"></span>
                 <h2 data-i18n="t1_title" class="text-3xl sm:text-5xl font-serif font-bold uppercase text-ink">
                     Теория панспермии
                 </h2>
@@ -203,12 +204,12 @@
                             />
                         </div>
                         <p data-i18n="t1_img_caption" class="text-xs text-inkmuted mt-2 font-mono">
-                            Фрагмент углистого хондрита Murchison: лабораторно доказано наличие внеземных аминокислот
+                            
                         </p>
                     </div>
 
                     <div class="bg-parchment p-6 border border-stoneborder">
-                        <h4 data-i18n="label_evidence" class="text-xs font-bold uppercase tracking-wider font-mono text-ink mb-3">Доказательства (4 ключевых факта):</h4>
+                        <h4 data-i18n="label_evidence" class="text-xs font-bold uppercase tracking-wider font-mono text-ink mb-3">Доказательства:</h4>
                         <ul class="space-y-3 text-xs text-ink leading-relaxed">
                             <li class="flex gap-2">
                                 <span class="font-mono font-bold">1.</span>
@@ -235,7 +236,7 @@
         <!-- ТЕОРИЯ 2: ПАЛЕОВИЗИТ -->
         <article id="theory-paleovisit" class="mb-24 pt-10 border-t-2 border-ink">
             <header class="mb-8 pb-4 border-b border-stoneborder">
-                <span data-i18n="t2_badge" class="text-xs font-mono uppercase tracking-widest text-inkmuted block mb-1">Исследовательский раздел II</span>
+                <span data-i18n="t2_badge" class="text-xs font-mono uppercase tracking-widest text-inkmuted block mb-1"></span>
                 <h2 data-i18n="t2_title" class="text-3xl sm:text-5xl font-serif font-bold uppercase text-ink">
                     Палеовизит (теория внешнего вмешательства)
                 </h2>
@@ -278,12 +279,12 @@
                             <span data-i18n="t2_img_title" class="text-sm font-serif font-semibold text-ink">Петроглифы Тассили-н'Адджер</span>
                         </div>
                         <p data-i18n="t2_img_caption" class="text-xs text-inkmuted mt-2 font-mono">
-                            Фреска «Большой бог марсиан» (Сахара, Алжир) в интерпретации сторонников палеоконтакта
+                            
                         </p>
                     </div>
 
                     <div class="bg-parchment p-6 border border-stoneborder">
-                        <h4 data-i18n="label_evidence" class="text-xs font-bold uppercase tracking-wider font-mono text-ink mb-3">Доказательства (аргументы сторонников):</h4>
+                        <h4 data-i18n="label_evidence" class="text-xs font-bold uppercase tracking-wider font-mono text-ink mb-3">Доказательства:</h4>
                         <ul class="space-y-3 text-xs text-ink leading-relaxed">
                             <li class="flex gap-2">
                                 <span class="font-mono font-bold">1.</span>
@@ -310,7 +311,7 @@
         <!-- ТЕОРИЯ 3: КОСМИЧЕСКАЯ ЭВОЛЮЦИЯ И БИОСФЕРНАЯ СВЯЗЬ -->
         <article id="theory-cosmoevolution" class="mb-24 pt-10 border-t-2 border-ink">
             <header class="mb-8 pb-4 border-b border-stoneborder">
-                <span data-i18n="t3_badge" class="text-xs font-mono uppercase tracking-widest text-inkmuted block mb-1">Исследовательский раздел III</span>
+                <span data-i18n="t3_badge" class="text-xs font-mono uppercase tracking-widest text-inkmuted block mb-1"></span>
                 <h2 data-i18n="t3_title" class="text-3xl sm:text-5xl font-serif font-bold uppercase text-ink">
                     Космическая эволюция и биосферная связь
                 </h2>
@@ -353,12 +354,12 @@
                             <span data-i18n="t3_img_title" class="text-sm font-serif font-semibold text-ink">Гелиобиологические ритмы биосферы</span>
                         </div>
                         <p data-i18n="t3_img_caption" class="text-xs text-inkmuted mt-2 font-mono">
-                            Корреляция циклов активности Солнца и биосферных процессов Земли по Чижевскому
+                            
                         </p>
                     </div>
 
                     <div class="bg-parchment p-6 border border-stoneborder">
-                        <h4 data-i18n="label_evidence" class="text-xs font-bold uppercase tracking-wider font-mono text-ink mb-3">Доказательства (4 фундаментальных факта):</h4>
+                        <h4 data-i18n="label_evidence" class="text-xs font-bold uppercase tracking-wider font-mono text-ink mb-3">Доказательства:</h4>
                         <ul class="space-y-3 text-xs text-ink leading-relaxed">
                             <li class="flex gap-2">
                                 <span class="font-mono font-bold">1.</span>
@@ -388,7 +389,7 @@
                 Вывод
             </h2>
             <p data-i18n="table_lead" class="text-sm text-inkmuted mb-8 leading-relaxed max-w-3xl">
-                Сравнительный анализ трех направлений космической концепции антропогенеза:
+                
             </p>
 
             <div class="overflow-x-auto border border-stoneborder">
@@ -562,7 +563,7 @@
                 </video>
             </div>
             <span class="text-[11px] font-mono text-zinc-400 block mt-3">
-                Видеоматериал: msshha.m4
+                
             </span>
             <div class="mt-4 text-xs font-mono text-zinc-500">
                 <a href="#branching-section" data-i18n="btn_to_top" class="hover:text-zinc-300 underline">
