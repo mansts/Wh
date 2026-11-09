@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Космические теории человечества</title>
+    <title id="doc-title">Космические теории человечества</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: EB Garamond (классический научный шрифт) и Inter -->
+    <!-- Шрифты: классический научный EB Garamond и лаконичный Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
@@ -17,21 +17,22 @@
                     colors: {
                         milk: '#FAF8F5',
                         parchment: '#EFECE6',
+                        stoneborder: '#DCD7CE',
                         ink: '#1A1A1A',
-                        inkmuted: '#5A5854',
-                        dividers: '#DDD9D0',
-                        projectordark: '#121211'
+                        inkmuted: '#5F5C56',
+                        projectordark: '#0F0F0E'
                     },
                     fontFamily: {
                         serif: ['"EB Garamond"', 'Georgia', 'serif'],
-                        sans: ['"Inter"', 'sans-serif']
+                        sans: ['"Inter"', 'sans-serif'],
+                        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace']
                     }
                 }
             }
         }
     </script>
     <style>
-        /* Строгие прямые углы 90° для всех элементов */
+        /* Строгие прямые углы 90° по всему интерфейсу */
         *, *::before, *::after {
             border-radius: 0px !important;
             box-sizing: border-box;
@@ -43,54 +44,52 @@
             text-rendering: optimizeLegibility;
             -webkit-font-smoothing: antialiased;
         }
+        .lang-btn.active {
+            background-color: #1A1A1A;
+            color: #FAF8F5;
+            border-color: #1A1A1A;
+        }
     </style>
 </head>
 <body class="selection:bg-ink selection:text-milk">
 
-    <!-- НАВИГАЦИОННАЯ СТРОКА -->
-    <nav class="sticky top-0 z-40 bg-milk/95 backdrop-blur-sm border-b border-dividers">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex flex-wrap justify-between items-center text-xs tracking-wider uppercase">
-            <span class="font-bold text-ink">Всемирная история</span>
-            <div class="flex flex-wrap gap-5 text-inkmuted">
-                <a href="#branches" class="hover:text-ink transition-colors">Ответвление</a>
-                <a href="#panspermia" class="hover:text-ink transition-colors">Панспермия</a>
-                <a href="#paleovisit" class="hover:text-ink transition-colors">Палеовизит</a>
-                <a href="#cosmoevolution" class="hover:text-ink transition-colors">Биосферная связь</a>
-                <a href="#comparison" class="hover:text-ink transition-colors">Вывод</a>
-                <a href="#sources" class="hover:text-ink transition-colors">Источники</a>
-                <a href="#projector-slide" class="text-ink font-bold hover:underline">Проектор ↓</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- ОСНОВНОЙ КОНТЕЙНЕР -->
-    <div class="max-w-5xl mx-auto px-6 pt-16 pb-20">
-
-        <!-- 1. ШАПКА САЙТА (СТРОГО ЗАГОЛОВОК БЕЗ ЛИШНЕГО) -->
-        <header class="mb-20 text-center md:text-left">
-            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold tracking-tight text-ink uppercase leading-tight">
+    <!-- 1. ШАПКА: ТОЛЬКО НАЗВАНИЕ И ПЕРЕКЛЮЧАТЕЛЬ KZ / RU / EN -->
+    <header class="border-b border-stoneborder sticky top-0 z-40 bg-milk/95 backdrop-blur-sm">
+        <div class="max-w-5xl mx-auto px-6 py-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <h1 id="header-title" class="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold uppercase tracking-tight text-ink leading-tight">
                 Космические теории человечества
             </h1>
-            <div class="w-24 h-0.5 bg-ink mt-8"></div>
-        </header>
+            <!-- Переключатель языка KZ / RU / EN -->
+            <div class="inline-flex border border-stoneborder text-xs font-mono tracking-wider uppercase select-none w-fit">
+                <button type="button" onclick="setLanguage('kz')" id="btn-kz" class="lang-btn px-4 py-2 hover:bg-stoneborder/40 transition-colors">KZ</button>
+                <div class="w-px bg-stoneborder"></div>
+                <button type="button" onclick="setLanguage('ru')" id="btn-ru" class="lang-btn active px-4 py-2 hover:bg-stoneborder/40 transition-colors">RU</button>
+                <div class="w-px bg-stoneborder"></div>
+                <button type="button" onclick="setLanguage('en')" id="btn-en" class="lang-btn px-4 py-2 hover:bg-stoneborder/40 transition-colors">EN</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ОСНОВНОЙ НАУЧНЫЙ МАТЕРИАЛ -->
+    <main class="max-w-5xl mx-auto px-6 pt-16 pb-24">
 
         <!-- 2. СХЕМА ОТВЕТВЛЕНИЯ В 3 СТОРОНЫ -->
-        <section id="branches" class="mb-28">
+        <section id="branching-section" class="mb-24">
             <div class="text-center mb-10">
-                <h2 class="text-2xl sm:text-3xl font-serif font-bold uppercase tracking-wide">
+                <h2 data-i18n="branch_heading" class="text-2xl sm:text-3xl font-serif font-bold uppercase tracking-wide">
                     Ответвление космической концепции
                 </h2>
-                <p class="text-xs text-inkmuted uppercase tracking-wider mt-2">
-                    Дифференциация единой космической идеи на три исследовательских направления
+                <p data-i18n="branch_subheading" class="text-xs text-inkmuted uppercase tracking-wider mt-2 font-mono">
+                    Дифференциация единой космической теории на три вектора происхождения человека
                 </p>
             </div>
 
-            <!-- Архитектура схемы ветвления -->
+            <!-- Архитектурная блок-схема ветвления -->
             <div class="max-w-4xl mx-auto">
-                <!-- Центральный исходный блок -->
-                <div class="bg-parchment p-6 text-center max-w-lg mx-auto">
-                    <span class="text-[11px] font-mono uppercase tracking-widest text-inkmuted block mb-1">Центральное ядро</span>
-                    <h3 class="text-xl sm:text-2xl font-serif font-bold uppercase text-ink">
+                <!-- Центральное ядро -->
+                <div class="bg-parchment p-6 text-center max-w-md mx-auto border border-stoneborder">
+                    <span data-i18n="core_label" class="text-[11px] font-mono uppercase tracking-widest text-inkmuted block mb-1">Центральное ядро</span>
+                    <h3 data-i18n="core_title" class="text-xl sm:text-2xl font-serif font-bold uppercase text-ink">
                         Космическая теория
                     </h3>
                 </div>
@@ -98,54 +97,53 @@
                 <!-- Вертикальная связующая ось -->
                 <div class="w-px h-10 bg-ink mx-auto"></div>
 
-                <!-- Горизонтальная направляющая линия -->
+                <!-- Горизонтальная направляющая ось -->
                 <div class="hidden md:block relative w-full h-px bg-ink">
-                    <!-- Три вертикальных ответвления вниз -->
                     <div class="absolute left-1/6 -translate-x-1/2 top-0 w-px h-8 bg-ink"></div>
                     <div class="absolute left-1/2 -translate-x-1/2 top-0 w-px h-8 bg-ink"></div>
                     <div class="absolute left-5/6 -translate-x-1/2 top-0 w-px h-8 bg-ink"></div>
                 </div>
 
-                <!-- 3 направления ответвления -->
+                <!-- 3 ветви ответвления -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 md:pt-8">
-                    <!-- Ветка 1 -->
-                    <div class="bg-parchment p-6 flex flex-col justify-between">
+                    <!-- Ответвление 1 -->
+                    <div class="bg-parchment p-6 border border-stoneborder flex flex-col justify-between">
                         <div>
-                            <span class="text-xs font-mono uppercase tracking-widest text-inkmuted block mb-2">Направление 1</span>
-                            <h4 class="font-serif font-bold text-xl uppercase mb-3">Теория панспермии</h4>
-                            <p class="text-xs text-inkmuted leading-relaxed">
-                                Занесение первичных протобиотических макромолекул, аминокислот и спор микроорганизмов кометами и метеоритами как фундамент для дальнейшей эволюции предков человека на Земле.
+                            <span data-i18n="branch1_num" class="text-xs font-mono uppercase tracking-widest text-inkmuted block mb-2">Направление I</span>
+                            <h4 data-i18n="branch1_name" class="font-serif font-bold text-xl uppercase mb-3">Теория панспермии</h4>
+                            <p data-i18n="branch1_desc" class="text-xs text-inkmuted leading-relaxed">
+                                Занесение первичных органических матриц, аминокислот и протоклеток метеоритами и кометами как экзогенный фундамент биосферы Земли.
                             </p>
                         </div>
-                        <a href="#panspermia" class="mt-6 pt-4 border-t border-dividers text-xs font-bold uppercase tracking-wider text-ink hover:underline">
+                        <a href="#theory-panspermia" data-i18n="link_read_detail" class="mt-6 pt-4 border-t border-stoneborder text-xs font-bold uppercase font-mono tracking-wider text-ink hover:underline">
                             К детальному разбору ↓
                         </a>
                     </div>
 
-                    <!-- Ветка 2 -->
-                    <div class="bg-parchment p-6 flex flex-col justify-between">
+                    <!-- Ответвление 2 -->
+                    <div class="bg-parchment p-6 border border-stoneborder flex flex-col justify-between">
                         <div>
-                            <span class="text-xs font-mono uppercase tracking-widest text-inkmuted block mb-2">Направление 2</span>
-                            <h4 class="font-serif font-bold text-xl uppercase mb-3">Палеовизит</h4>
-                            <p class="text-xs text-inkmuted leading-relaxed">
-                                Гипотеза внешнего вмешательства: искусственная генетическая трансформация гоминид внеземной цивилизацией, давшая качественный толчок скачку сознания и технологий.
+                            <span data-i18n="branch2_num" class="text-xs font-mono uppercase tracking-widest text-inkmuted block mb-2">Направление II</span>
+                            <h4 data-i18n="branch2_name" class="font-serif font-bold text-xl uppercase mb-3">Палеовизит</h4>
+                            <p data-i18n="branch2_desc" class="text-xs text-inkmuted leading-relaxed">
+                                Концепция искусственного вмешательства: целенаправленная генетическая трансформация гоминид высокоразвитой внеземной цивилизацией.
                             </p>
                         </div>
-                        <a href="#paleovisit" class="mt-6 pt-4 border-t border-dividers text-xs font-bold uppercase tracking-wider text-ink hover:underline">
+                        <a href="#theory-paleovisit" data-i18n="link_read_detail" class="mt-6 pt-4 border-t border-stoneborder text-xs font-bold uppercase font-mono tracking-wider text-ink hover:underline">
                             К детальному разбору ↓
                         </a>
                     </div>
 
-                    <!-- Ветка 3 -->
-                    <div class="bg-parchment p-6 flex flex-col justify-between">
+                    <!-- Ответвление 3 -->
+                    <div class="bg-parchment p-6 border border-stoneborder flex flex-col justify-between">
                         <div>
-                            <span class="text-xs font-mono uppercase tracking-widest text-inkmuted block mb-2">Направление 3</span>
-                            <h4 class="font-serif font-bold text-xl uppercase mb-3">Космическая эволюция и биосферная связь</h4>
-                            <p class="text-xs text-inkmuted leading-relaxed">
-                                Человек как закономерный продукт целостной земной биосферы, чье видообразование и мутагенез управлялись ритмами Солнца, космической радиацией и циклами Вселенной.
+                            <span data-i18n="branch3_num" class="text-xs font-mono uppercase tracking-widest text-inkmuted block mb-2">Направление III</span>
+                            <h4 data-i18n="branch3_name" class="font-serif font-bold text-xl uppercase mb-3">Космическая эволюция и биосферная связь</h4>
+                            <p data-i18n="branch3_desc" class="text-xs text-inkmuted leading-relaxed">
+                                Человек как органический продукт целостной биосферы, чье видообразование управлялось солнечной активностью, космическими лучами и вселенскими ритмами.
                             </p>
                         </div>
-                        <a href="#cosmoevolution" class="mt-6 pt-4 border-t border-dividers text-xs font-bold uppercase tracking-wider text-ink hover:underline">
+                        <a href="#theory-cosmoevolution" data-i18n="link_read_detail" class="mt-6 pt-4 border-t border-stoneborder text-xs font-bold uppercase font-mono tracking-wider text-ink hover:underline">
                             К детальному разбору ↓
                         </a>
                     </div>
@@ -153,88 +151,80 @@
             </div>
         </section>
 
-        <!-- 3. ДЕТАЛЬНЫЙ РАЗБОР ПО ТРЕОРИЯМ -->
+        <!-- 3. ДЕТАЛЬНЫЙ РАЗБОР ТЕОРИЙ ПО СТРОГИМ КРИТЕРИЯМ -->
 
-        <!-- ТЕОРИЯ 1: ТЕОРИЯ ПАНСПЕРМИИ -->
-        <article id="panspermia" class="mb-24 pt-8 border-t border-dividers">
-            <header class="mb-8 pb-4 border-b border-dividers">
-                <span class="text-xs font-mono uppercase tracking-widest text-inkmuted block mb-1">Исследовательский блок I</span>
-                <h2 class="text-3xl sm:text-5xl font-serif font-bold uppercase text-ink">
+        <!-- ТЕОРИЯ 1: ПАНСПЕРМИЯ -->
+        <article id="theory-panspermia" class="mb-24 pt-10 border-t-2 border-ink">
+            <header class="mb-8 pb-4 border-b border-stoneborder">
+                <span data-i18n="t1_badge" class="text-xs font-mono uppercase tracking-widest text-inkmuted block mb-1">Исследовательский раздел I</span>
+                <h2 data-i18n="t1_title" class="text-3xl sm:text-5xl font-serif font-bold uppercase text-ink">
                     Теория панспермии
                 </h2>
-                <p class="text-base font-serif italic text-inkmuted mt-1">Экзогенное зарождение органических предпосылок земной жизни</p>
+                <p data-i18n="t1_subtitle" class="text-sm font-serif italic text-inkmuted mt-1">Экзогенный занос молекулярных и биогенных предпосылок земной жизни</p>
             </header>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
-                <!-- Текстовый анализ (Критерии) -->
                 <div class="lg:col-span-7 space-y-6 text-sm text-ink leading-relaxed text-justify">
                     <div>
-                        <h4 class="text-xs font-bold uppercase tracking-wider font-mono text-inkmuted mb-2">Автор и актуальность</h4>
-                        <p>
-                            Концепция впервые систематически сформулирована немецким врачом <strong>Германом Рихтером (1865 г.)</strong> и физиком <strong>Германом Гельмгольцем (1871 г.)</strong>, а физико-математическую основу переноса спор давлением света заложил нобелевский лауреат <strong>Сванте Аррениус (1908 г.)</strong>. В 1973 году нобелевский лауреат <strong>Фрэнсис Крик</strong> (первооткрыватель структуры ДНК) и <strong>Лесли Оргел</strong> сформулировали гипотезу «направленной панспермии».
-                        </p>
-                        <p class="mt-2 text-inkmuted text-xs">
-                            <em>Актуальность:</em> В XXI веке теория переживает мощный научный ренессанс благодаря экспедициям NASA (OSIRIS-REx), JAXA (Хаябуса-2) и спектроскопии телескопа James Webb, подтвердившим наличие сложных органических соединений в протопланетных дисках и на астероидах.
+                        <h4 data-i18n="label_author" class="text-xs font-bold uppercase tracking-wider font-mono text-inkmuted mb-2">Основоположники и актуальность</h4>
+                        <p data-i18n="t1_author_text">
+                            Идея занесения спор предложена <strong>Г. Рихтером (1865 г.)</strong> и физиком <strong>Г. Гельмгольцем (1871 г.)</strong>. Расчет переноса микрочастиц световым давлением выполнил <strong>Сванте Аррениус (1908 г.)</strong>. В 1973 г. лауреат Нобелевской премии по открытию структуры ДНК <strong>Фрэнсис Крик</strong> и <strong>Лесли Оргел</strong> развили концепцию «направленной панспермии». В XXI в. теория актуализирована миссиями NASA (Stardust, OSIRIS-REx) и JAXA (Hayabusa-2).
                         </p>
                     </div>
 
                     <div>
-                        <h4 class="text-xs font-bold uppercase tracking-wider font-mono text-inkmuted mb-2">Суть теории / Гипотеза</h4>
-                        <p>
-                            Жизнь на Земле не синтезировалась из неорганических соединений с нуля: молекулярные матрицы, аминокислоты, нуклеотиды или ультрамикроскопические споры были занесены из космоса кометами, метеоритами и межзвездной пылью в эпоху интенсивной метеоритной бомбардировки (3,8–4,1 млрд лет назад). Человек на глубинном генетическом уровне является продуктом космической биохимии: универсальный генетический код, левозакрученные аминокислоты и рибонуклеиновые цепи имеют общевселенский фундамент.
+                        <h4 data-i18n="label_hypothesis" class="text-xs font-bold uppercase tracking-wider font-mono text-inkmuted mb-2">Суть теории / Гипотеза</h4>
+                        <p data-i18n="t1_hypo_text">
+                            Жизнь на Земле не синтезировалась «с чистого листа» исключительно из абиогенного бульона. Аминокислоты, предшественники РНК/ДНК и липиды были доставлены из межзвездного пространства кометами в эпоху поздней тяжелой бомбардировки. Вся биохимия предков человека уходит корнями во внеземной предбиологический синтез.
                         </p>
                     </div>
 
                     <div>
-                        <h4 class="text-xs font-bold uppercase tracking-wider font-mono text-inkmuted mb-2">Приверженцы и опровержения</h4>
-                        <p>
-                            Около <strong>50% исследователей в современной астробиологии и экзобиологии</strong> признают кометную доставку воды и предбиологической органики доказанным фактом. Среди ключевых приверженцев — сэр <strong>Фред Хойл</strong>, <strong>Чандра Викрамасингхе</strong> и исследователи Института космических исследований РАН.
+                        <h4 data-i18n="label_supporters" class="text-xs font-bold uppercase tracking-wider font-mono text-inkmuted mb-2">Приверженцы и опровержения</h4>
+                        <p data-i18n="t1_supp_text">
+                            Около <strong>50% исследователей в астробиологии</strong> признают кометную доставку органики и воды фактом. Концепцию защищали астрофизики <strong>Фред Хойл</strong> и <strong>Чандра Викрамасингхе</strong>. Около <strong>50% биохимиков классической школы</strong> (А. Опарин, С. Миллер) критикуют теорию за то, что она лишь переносит нерешенный вопрос первичного зарождения репликации в космическое пространство.
                         </p>
-                        <p class="mt-2 text-inkmuted">
-                            <em>Опровержения:</em> Около <strong>50% сторонников классического абиогенеза</strong> (школы А. И. Опарина и Дж. Холдейна) возражают, отмечая, что панспермия лишь переносит проблему возникновения репликации в космическое пространство, не объясняя первичного перехода от химии к биологии.
-                        </p>
-                        <div class="bg-parchment p-4 my-2 text-xs italic text-ink border-l-2 border-ink">
-                            «Вероятность возникновения жизни на Земле случайным соединением химических элементов сопоставима с вероятностью того, что пронесшийся над свалкой ураган соберет исправный лайнер Boeing 747.»
-                            <span class="block not-italic font-bold font-mono text-ink mt-2">— Астрофизик Сэр Фред Хойл</span>
+                        <div class="bg-parchment p-4 my-3 text-xs italic text-ink border-l-2 border-ink">
+                            <span data-i18n="t1_quote">«Вероятность возникновения живой клетки случайным соединением химических элементов сопоставима с вероятностью того, что пронесшийся над свалкой торнадо соберет исправный Boeing 747.»</span>
+                            <span class="block not-italic font-bold font-mono text-ink mt-2" data-i18n="t1_quote_author">— Сэр Фред Хойл, астрофизик</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Правая колонка: Фото и Доказательства -->
+                <!-- Правая колонка: Изображение 757e5f9d-d8d2-4880-9537-d05a88811adb.jpeg и 4 факта доказательств -->
                 <div class="lg:col-span-5 space-y-6">
                     <div>
-                        <!-- Фото Панспермии -->
-                        <div class="w-full bg-parchment overflow-hidden">
+                        <div class="w-full bg-parchment border border-stoneborder overflow-hidden">
                             <img 
                                 src="757e5f9d-d8d2-4880-9537-d05a88811adb.jpeg" 
-                                alt="Метеорит Murchison и внеземные аминокислоты" 
+                                alt="Метеорит Murchison" 
                                 class="w-full h-auto block object-cover max-h-72"
                                 onerror="this.onerror=null; this.src='https://placehold.co/600x400/EFECE6/1A1A1A?text=Murchison+Meteorite';"
                             />
                         </div>
-                        <p class="text-xs text-inkmuted mt-2 font-mono">
-                            Фрагмент метеорита Murchison с подтвержденным содержанием внеземных аминокислот
+                        <p data-i18n="t1_img_caption" class="text-xs text-inkmuted mt-2 font-mono">
+                            Фрагмент углистого хондрита Murchison: лабораторно доказано наличие внеземных аминокислот
                         </p>
                     </div>
 
-                    <div class="bg-parchment p-6">
-                        <h4 class="text-xs font-bold uppercase tracking-wider font-mono text-ink mb-3">Доказательства (4 ключевых факта):</h4>
+                    <div class="bg-parchment p-6 border border-stoneborder">
+                        <h4 data-i18n="label_evidence" class="text-xs font-bold uppercase tracking-wider font-mono text-ink mb-3">Доказательства (4 ключевых факта):</h4>
                         <ul class="space-y-3 text-xs text-ink leading-relaxed">
                             <li class="flex gap-2">
                                 <span class="font-mono font-bold">1.</span>
-                                <span><strong>Аминокислоты в хондритах:</strong> В углистом хондрите Murchison (1969 г.) лабораторно идентифицированы свыше 70 аминокислот, пурины и пиримидины с изотопным сдвигом по углероду-13, подтверждающим их чисто космическое происхождение.</span>
+                                <span data-i18n="t1_ev1"><strong>Аминокислоты в хондритах:</strong> В метеорите Мерчисон (1969 г.) выявлено более 70 аминокислот с характерным изотопным сдвигом углерода-13, подтверждающим внеземное происхождение.</span>
                             </li>
                             <li class="flex gap-2">
                                 <span class="font-mono font-bold">2.</span>
-                                <span><strong>Анализ вещества астероидов:</strong> Зонды Hayabusa-2 и OSIRIS-REx доставили пробы с астероидов Рюгу и Бенну в стерильных капсулах, где обнаружены рибоза, урацил и азотистые основания в нетронутом виде.</span>
+                                <span data-i18n="t1_ev2"><strong>Зонды Hayabusa-2 и OSIRIS-REx:</strong> В чистейших пробах грунта астероидов Рюгу и Бенну спектрально и химически обнаружены урацил, рибоза и азотистые основания.</span>
                             </li>
                             <li class="flex gap-2">
                                 <span class="font-mono font-bold">3.</span>
-                                <span><strong>Выживание бактерий в открытом космосе:</strong> Эксперименты «Биориск» и Tanpopo на обшивке МКС доказали, что споры Bacillus subtilis и радиоустойчивые бактерии Deinococcus radiodurans выдерживают жесткий вакуум, космические лучи и перепады температур до 3 лет.</span>
+                                <span data-i18n="t1_ev3"><strong>Эксперименты в открытом космосе:</strong> Эксперименты «Биориск» и Tanpopo на обшивке МКС доказали, что споры бактерий и Deinococcus radiodurans выживают в открытом космическом вакууме более 3 лет.</span>
                             </li>
                             <li class="flex gap-2">
                                 <span class="font-mono font-bold">4.</span>
-                                <span><strong>Органика на кометах:</strong> Зонд «Розетта» на комете 67P/Чурюмова — Герасименко выявил глицин и фосфор — незаменимые компоненты клеточных мембран и каркаса ДНК.</span>
+                                <span data-i18n="t1_ev4"><strong>Данные аппарата «Розетта»:</strong> В коме комета 67P/Чурюмова-Герасименко обнаружены простейшая аминокислота глицин и фосфор, образующие остов ДНК.</span>
                             </li>
                         </ul>
                     </div>
@@ -242,82 +232,74 @@
             </div>
         </article>
 
-        <!-- ТЕОРИЯ 2: ПАЛЕОВИЗИТ (ТЕОРИЯ ВНЕШНЕГО ВМЕШАТЕЛЬСТВА) -->
-        <article id="paleovisit" class="mb-24 pt-8 border-t border-dividers">
-            <header class="mb-8 pb-4 border-b border-dividers">
-                <span class="text-xs font-mono uppercase tracking-widest text-inkmuted block mb-1">Исследовательский блок II</span>
-                <h2 class="text-3xl sm:text-5xl font-serif font-bold uppercase text-ink">
+        <!-- ТЕОРИЯ 2: ПАЛЕОВИЗИТ -->
+        <article id="theory-paleovisit" class="mb-24 pt-10 border-t-2 border-ink">
+            <header class="mb-8 pb-4 border-b border-stoneborder">
+                <span data-i18n="t2_badge" class="text-xs font-mono uppercase tracking-widest text-inkmuted block mb-1">Исследовательский раздел II</span>
+                <h2 data-i18n="t2_title" class="text-3xl sm:text-5xl font-serif font-bold uppercase text-ink">
                     Палеовизит (теория внешнего вмешательства)
                 </h2>
-                <p class="text-base font-serif italic text-inkmuted mt-1">Гипотеза направленной генетической инженерии древних гоминид</p>
+                <p data-i18n="t2_subtitle" class="text-sm font-serif italic text-inkmuted mt-1">Гипотеза целенаправленной генетической инженерии древних гоминид</p>
             </header>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
-                <!-- Текстовый анализ -->
                 <div class="lg:col-span-7 space-y-6 text-sm text-ink leading-relaxed text-justify">
                     <div>
-                        <h4 class="text-xs font-bold uppercase tracking-wider font-mono text-inkmuted mb-2">Автор и актуальность</h4>
-                        <p>
-                            Научно-публицистическое обоснование гипотезы палеоконтакта в СССР сформулировали математик <strong>Матест Агрест (1959 г.)</strong> и фантаст <strong>Александр Казанцев</strong>. Всемирную популярность концепция получила благодаря книгам швейцарского исследователя <strong>Эриха фон Дэникена</strong> («Колесницы богов?», 1968 г.) и востоковеда <strong>Захарии Ситчина</strong>.
-                        </p>
-                        <p class="mt-2 text-inkmuted text-xs">
-                            <em>Актуальность:</em> Идея непрерывно циркулирует в массовой культуре, документальных циклах и научно-популярных дебатах о скорости эволюции коры больших полушарий человеческого мозга.
+                        <h4 data-i18n="label_author" class="text-xs font-bold uppercase tracking-wider font-mono text-inkmuted mb-2">Основоположники и актуальность</h4>
+                        <p data-i18n="t2_author_text">
+                            Математическое обоснование гипотезы сформулировал советский математик <strong>Матест Агрест (1959 г.)</strong>. Всемирный резонанс гипотеза получила благодаря публикациям <strong>Эриха фон Дэникена</strong> («Колесницы богов?», 1968 г.) и востоковеда <strong>Захарии Ситчина</strong>. Тема широко представлена в медиапространстве и дискуссиях о причинах резкого скачка объема головного мозга у рода <em>Homo</em>.
                         </p>
                     </div>
 
                     <div>
-                        <h4 class="text-xs font-bold uppercase tracking-wider font-mono text-inkmuted mb-2">Суть теории / Гипотеза</h4>
-                        <p>
-                            Появление человека современного анатомического типа (<em>Homo sapiens sapiens</em>) и взрывной скачок интеллекта произошли в результате прямого целенаправленного вмешательства внеземной сверхцивилизации. Согласно гипотезе, внеземные исследователи скорректировали геном земного гоминида (австралопитека или питекантропа), искусственно внедрив гены абстрактного мышления и членораздельной речи, а также передали ранним цивилизациям календарные, строительные и астрономические знания.
+                        <h4 data-i18n="label_hypothesis" class="text-xs font-bold uppercase tracking-wider font-mono text-inkmuted mb-2">Суть теории / Гипотеза</h4>
+                        <p data-i18n="t2_hypo_text">
+                            Появление анатомически современного человека (<em>Homo sapiens</em>) и взрывное развитие речи, мышления и орудийной деятельности произошли в результате искусственной генетической модификации земных приматов высокоразвитой космической цивилизацией. Внеземные кураторы также рассматриваются сторонниками как источник первичных технологий и астрономических знаний древних государств.
                         </p>
                     </div>
 
                     <div>
-                        <h4 class="text-xs font-bold uppercase tracking-wider font-mono text-inkmuted mb-2">Приверженцы и опровержения</h4>
-                        <p>
-                            В академическом сообществе (Институт антропологии, РАН, археологические ассоциации) теория категорически отвергается: <strong>менее 1% дипломированных антропологов и историков</strong> считают палеовизит заслуживающим доверия, признавая концепцию псевдонаучной мифологией. В то же время среди широкой аудитории в разных странах от <strong>25% до 35% опрошенных</strong> допускают палеоконтакт как объяснение нерешенных исторических загадок.
+                        <h4 data-i18n="label_supporters" class="text-xs font-bold uppercase tracking-wider font-mono text-inkmuted mb-2">Приверженцы и опровержения</h4>
+                        <p data-i18n="t2_supp_text">
+                            В академическом сообществе теория отвергается: <strong>менее 1% профессиональных антропологов и историков</strong> признают палеовизит. Среди широкой общественности в ряде стран от <strong>25% до 35% опрошенных</strong> допускают идею палеоконтакта. Академическая наука подчеркивает, что палеонтологическая летопись демонстрирует плавную постепенность эволюции без следов внешнего генетического вмешательства.
                         </p>
-                        <p class="mt-2 text-inkmuted">
-                            <em>Опровержения:</em> Ведущий критик теории астрофизик <strong>Карл Саган</strong> подчеркивал методологическую слабость авторов: артефакты интерпретируются предвзято, а эволюционная цепочка гоминид подтверждается тысячами палеонтологических находок без аномальных следов инородного ДНК.
-                        </p>
-                        <div class="bg-parchment p-4 my-2 text-xs italic text-ink border-l-2 border-ink">
-                            «Экстраординарные утверждения требуют экстраординарных доказательств. Объяснять монументальные храмы и достижения древних обществ помощью пришельцев — значит проявлять неуважение к реальному гению и титаническому труду человечества.»
-                            <span class="block not-italic font-bold font-mono text-ink mt-2">— Астрофизик Карл Саган</span>
+                        <div class="bg-parchment p-4 my-3 text-xs italic text-ink border-l-2 border-ink">
+                            <span data-i18n="t2_quote">«Экстраординарные утверждения требуют экстраординарных доказательств. Объяснять монументальные храмы и достижения древних цивилизаций вмешательством пришельцев — значит оскорблять подлинный гений и труд самого человека.»</span>
+                            <span class="block not-italic font-bold font-mono text-ink mt-2" data-i18n="t2_quote_author">— Карл Саган, астрофизик и популяризатор науки</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Правая колонка: Место под фото и Доказательства -->
                 <div class="lg:col-span-5 space-y-6">
                     <div>
-                        <!-- Чистое место под фото без лишних рамок -->
-                        <div class="w-full bg-parchment aspect-[4/3] flex flex-col justify-center items-center text-center p-6">
-                            <span class="text-xs font-mono uppercase tracking-widest text-inkmuted block mb-2">[ МЕСТО ДЛЯ ФОТО ]</span>
-                            <span class="text-sm font-serif font-semibold text-ink">Петроглифы Тассили-н'Адджер</span>
+                        <!-- Чистое место под фото без вычурных рамок -->
+                        <div class="w-full bg-parchment border border-stoneborder aspect-[4/3] flex flex-col justify-center items-center text-center p-6">
+                            <span data-i18n="t2_img_placeholder" class="text-xs font-mono uppercase tracking-widest text-inkmuted block mb-2">[ МЕСТО ДЛЯ ФОТО ]</span>
+                            <span data-i18n="t2_img_title" class="text-sm font-serif font-semibold text-ink">Петроглифы Тассили-н'Адджер</span>
                         </div>
-                        <p class="text-xs text-inkmuted mt-2 font-mono">
-                            Наскальная фреска «Большой бог марсиан» (Сахара, Алжир)
+                        <p data-i18n="t2_img_caption" class="text-xs text-inkmuted mt-2 font-mono">
+                            Фреска «Большой бог марсиан» (Сахара, Алжир) в интерпретации сторонников палеоконтакта
                         </p>
                     </div>
 
-                    <div class="bg-parchment p-6">
-                        <h4 class="text-xs font-bold uppercase tracking-wider font-mono text-ink mb-3">Доказательства (аргументы сторонников):</h4>
+                    <div class="bg-parchment p-6 border border-stoneborder">
+                        <h4 data-i18n="label_evidence" class="text-xs font-bold uppercase tracking-wider font-mono text-ink mb-3">Доказательства (аргументы сторонников):</h4>
                         <ul class="space-y-3 text-xs text-ink leading-relaxed">
                             <li class="flex gap-2">
                                 <span class="font-mono font-bold">1.</span>
-                                <span><strong>Утроение объема черепной коробки:</strong> Резкий рост объема мозга от 450 см³ у австралопитека до 1400 см³ у кроманьонца сторонники объясняют точечной генной терапией древних гоминид.</span>
+                                <span data-i18n="t2_ev1"><strong>Утроение объема головного мозга:</strong> Скачок от 450 см³ у австралопитека до 1400 см³ у кроманьонца сторонники объясняют точечной генной терапией.</span>
                             </li>
                             <li class="flex gap-2">
                                 <span class="font-mono font-bold">2.</span>
-                                <span><strong>Наскальные росписи и статуэтки:</strong> Фрески в Тассили-н'Адджер (Алжир), петроглифы Валь-Камоники (Италия) и глиняные японские фигурки Догу с элементами, визуально напоминающими шлемы и гермокостюмы.</span>
+                                <span data-i18n="t2_ev2"><strong>Наскальные росписи со «шлемами»:</strong> Рисунки плато Тассили-н'Адджер (Алжир), петроглифы Валь-Камоники и статуэтки Догу эпохи Дзёмон с чертами скафандров.</span>
                             </li>
                             <li class="flex gap-2">
                                 <span class="font-mono font-bold">3.</span>
-                                <span><strong>Древние космогонические тексты:</strong> Шумерский эпос «Энума Элиш» о сотворении людей аннунаками с планеты Нибиру, древнеиндийские «Махабхарата» с летающими аппаратами-виманами и астрономические мифы племени догонов о Сириусе B.</span>
+                                <span data-i18n="t2_ev3"><strong>Древневосточные тексты:</strong> Шумерский эпос о сотворении первых людей аннунаками и индийские трактаты с описанием летательных колесниц-виманов.</span>
                             </li>
                             <li class="flex gap-2">
                                 <span class="font-mono font-bold">4.</span>
-                                <span><strong>Мегалитическая полигональная архитектура:</strong> Комплексы Пума-Пунку в Боливии, террасы Баальбека и пирамиды Гизы с высокой точностью ориентирования по созвездию Ориона.</span>
+                                <span data-i18n="t2_ev4"><strong>Полигональная мегалитическая кладка:</strong> Технологии подгонки монолитов Пума-Пунку, Баальбека и пирамид с ориентацией по поясу Ориона.</span>
                             </li>
                         </ul>
                     </div>
@@ -326,81 +308,73 @@
         </article>
 
         <!-- ТЕОРИЯ 3: КОСМИЧЕСКАЯ ЭВОЛЮЦИЯ И БИОСФЕРНАЯ СВЯЗЬ -->
-        <article id="cosmoevolution" class="mb-24 pt-8 border-t border-dividers">
-            <header class="mb-8 pb-4 border-b border-dividers">
-                <span class="text-xs font-mono uppercase tracking-widest text-inkmuted block mb-1">Исследовательский блок III</span>
-                <h2 class="text-3xl sm:text-5xl font-serif font-bold uppercase text-ink">
+        <article id="theory-cosmoevolution" class="mb-24 pt-10 border-t-2 border-ink">
+            <header class="mb-8 pb-4 border-b border-stoneborder">
+                <span data-i18n="t3_badge" class="text-xs font-mono uppercase tracking-widest text-inkmuted block mb-1">Исследовательский раздел III</span>
+                <h2 data-i18n="t3_title" class="text-3xl sm:text-5xl font-serif font-bold uppercase text-ink">
                     Космическая эволюция и биосферная связь
                 </h2>
-                <p class="text-base font-serif italic text-inkmuted mt-1">Антропогенез как планетарно-космический процесс ноосферного развития</p>
+                <p data-i18n="t3_subtitle" class="text-sm font-serif italic text-inkmuted mt-1">Антропогенез как планетарно-космический процесс ноосферного развития</p>
             </header>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
-                <!-- Текстовый анализ -->
                 <div class="lg:col-span-7 space-y-6 text-sm text-ink leading-relaxed text-justify">
                     <div>
-                        <h4 class="text-xs font-bold uppercase tracking-wider font-mono text-inkmuted mb-2">Автор и актуальность</h4>
-                        <p>
-                            Основоположниками концепции выступили великие ученые-космисты: создатель учения о биосфере и ноосфере академик <strong>В. И. Вернадский</strong>, основоположник космического естествознания и гелиобиологии <strong>А. Л. Чижевский</strong>, а также теоретик космического расселения разума <strong>К. Э. Циолковский</strong>.
-                        </p>
-                        <p class="mt-2 text-inkmuted text-xs">
-                            <em>Актуальность:</em> Современные институты физики Земли и космической погоды подтверждают цикличность эволюционных кризисов под воздействием солнечных вспышек и изменений геомагнитного экрана.
+                        <h4 data-i18n="label_author" class="text-xs font-bold uppercase tracking-wider font-mono text-inkmuted mb-2">Основоположники и актуальность</h4>
+                        <p data-i18n="t3_author_text">
+                            Основоположниками концепции являются академик <strong>В. И. Вернадский</strong> (создатель биогеохимии и учения о ноосфере), <strong>А. Л. Чижевский</strong> (основатель гелиобиологии и космического естествознания) и философ <strong>К. Э. Циолковский</strong>. В современной науке направление находит прямое подтверждение в исследованиях космической погоды и институтах геофизики.
                         </p>
                     </div>
 
                     <div>
-                        <h4 class="text-xs font-bold uppercase tracking-wider font-mono text-inkmuted mb-2">Суть теории / Гипотеза</h4>
-                        <p>
-                            Человек и биосфера планеты представляют собой не изолированную биологическую систему, а непрерывный космический механизм трансформации энергии Вселенной. Живое вещество аккумулирует солнечную и космическую энергию. Скачки мутагенеза, вымирание архаичных видов и появление рода <em>Homo</em> синхронизированы с циклами активности Солнца, прохождением Солнечной системы через рукава Галактики и инверсиями магнитного поля Земли.
+                        <h4 data-i18n="label_hypothesis" class="text-xs font-bold uppercase tracking-wider font-mono text-inkmuted mb-2">Суть теории / Гипотеза</h4>
+                        <p data-i18n="t3_hypo_text">
+                            Человек и биосфера — это открытая термодинамическая система, непрерывно аккумулирующая энергию Вселенной. Ключевые мутации предков людей, смены геологических эпох и расцвет цивилизаций синхронизированы с ритмами Солнца, космической радиацией и положением Солнечной системы в спиральных рукавах Галактики.
                         </p>
                     </div>
 
                     <div>
-                        <h4 class="text-xs font-bold uppercase tracking-wider font-mono text-inkmuted mb-2">Приверженцы и опровержения</h4>
-                        <p>
-                            Более <strong>50% ученых в области биофизики, геохимии и экологической эволюции</strong> разделяют принципы Вернадского и Чижевского. Современная палеоклиматология полностью подтверждает зависимость эволюции видов от орбитальных параметров планеты.
+                        <h4 data-i18n="label_supporters" class="text-xs font-bold uppercase tracking-wider font-mono text-inkmuted mb-2">Приверженцы и опровержения</h4>
+                        <p data-i18n="t3_supp_text">
+                            Свыше <strong>50% биофизиков, геоэкологов и астрофизиков</strong> разделяют учение о влиянии космических факторов на земную жизнь. Оппоненты предостерегают от упрощенного «космического фатализма», указывая, что исторические события обусловлены в первую очередь социально-экономическими законами общества.
                         </p>
-                        <p class="mt-2 text-inkmuted">
-                            <em>Опровержения:</em> Оппоненты критикуют попытки прямолинейного соотнесения исторических событий и социальных восстаний с 11-летними циклами солнечных пятен, считая подобные выводы Чижевского избыточным «космическим фатализмом».
-                        </p>
-                        <div class="bg-parchment p-4 my-2 text-xs italic text-ink border-l-2 border-ink">
-                            «Человек на Земле не есть случайное независимое существо. Человек есть геологический и космический деятель, превращающий биосферу Земли в новое эволюционное состояние — сферу разума, ноосферу.»
-                            <span class="block not-italic font-bold font-mono text-ink mt-2">— Академик В. И. Вернадский</span>
+                        <div class="bg-parchment p-4 my-3 text-xs italic text-ink border-l-2 border-ink">
+                            <span data-i18n="t3_quote">«Человек на Земле не случаен. Он представляет собой закономерный геологический и космический фактор, преобразующий биосферу в ноосферу — сферу разума.»</span>
+                            <span class="block not-italic font-bold font-mono text-ink mt-2" data-i18n="t3_quote_author">— Академик В. И. Вернадский</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Правая колонка: Место под фото и Доказательства -->
                 <div class="lg:col-span-5 space-y-6">
                     <div>
-                        <!-- Чистое место под фото без лишних рамок -->
-                        <div class="w-full bg-parchment aspect-[4/3] flex flex-col justify-center items-center text-center p-6">
-                            <span class="text-xs font-mono uppercase tracking-widest text-inkmuted block mb-2">[ МЕСТО ДЛЯ ФОТО ]</span>
-                            <span class="text-sm font-serif font-semibold text-ink">Гелиобиологические ритмы биосферы</span>
+                        <!-- Место под фото -->
+                        <div class="w-full bg-parchment border border-stoneborder aspect-[4/3] flex flex-col justify-center items-center text-center p-6">
+                            <span data-i18n="t3_img_placeholder" class="text-xs font-mono uppercase tracking-widest text-inkmuted block mb-2">[ МЕСТО ДЛЯ ФОТО ]</span>
+                            <span data-i18n="t3_img_title" class="text-sm font-serif font-semibold text-ink">Гелиобиологические ритмы биосферы</span>
                         </div>
-                        <p class="text-xs text-inkmuted mt-2 font-mono">
-                            Корреляция циклов солнечной активности и биосферных процессов Земли
+                        <p data-i18n="t3_img_caption" class="text-xs text-inkmuted mt-2 font-mono">
+                            Корреляция циклов активности Солнца и биосферных процессов Земли по Чижевскому
                         </p>
                     </div>
 
-                    <div class="bg-parchment p-6">
-                        <h4 class="text-xs font-bold uppercase tracking-wider font-mono text-ink mb-3">Доказательства (4 фундаментальных факта):</h4>
+                    <div class="bg-parchment p-6 border border-stoneborder">
+                        <h4 data-i18n="label_evidence" class="text-xs font-bold uppercase tracking-wider font-mono text-ink mb-3">Доказательства (4 фундаментальных факта):</h4>
                         <ul class="space-y-3 text-xs text-ink leading-relaxed">
                             <li class="flex gap-2">
                                 <span class="font-mono font-bold">1.</span>
-                                <span><strong>Инверсии магнитного поля и всплески мутаций:</strong> В периоды геомагнитных инверсий (инверсия Матуяма-Брюнес 780 тыс. лет назад) исчезал магнитный щит, вызывая мутагенный радиационный поток и скачкообразное видообразование предков человека.</span>
+                                <span data-i18n="t3_ev1"><strong>Инверсии магнитного поля:</strong> Ослабление геомагнитного щита во время инверсий (Матуяма-Брюнес 780 тыс. лет назад) резко усиливало космическое облучение и мутагенез гоминид.</span>
                             </li>
                             <li class="flex gap-2">
                                 <span class="font-mono font-bold">2.</span>
-                                <span><strong>Изотопные следы сверхновых (<sup>60</sup>Fe):</strong> В океанических отложениях обнаружен пик изотопа железа-60 возрастом 2,6 млн лет — след близкой вспышки сверхновой, совпавший с похолоданием и появлением первых каменных орудий рода <em>Homo</em>.</span>
+                                <span data-i18n="t3_ev2"><strong>Изотопы железа-60 (<sup>60</sup>Fe):</strong> Обнаружение слоев космогенного железа-60 на океаническом дне датирует вспышку близкой сверхновой ~2,6 млн лет назад, совпавшую с началом эпохи плейстоцена.</span>
                             </li>
                             <li class="flex gap-2">
                                 <span class="font-mono font-bold">3.</span>
-                                <span><strong>Астрономические циклы Миланковича:</strong> Периодические колебания эксцентриситета орбиты и наклона земной оси циклически вызывали ледниковые эпохи, стимулировавшие объединение предков людей в адаптивные социумы.</span>
+                                <span data-i18n="t3_ev3"><strong>Астрономические циклы Миланковича:</strong> Колебания эксцентриситета орбиты и прецессия земной оси вызывали ледниковые периоды, вынуждая гоминид объединяться в сообщества.</span>
                             </li>
                             <li class="flex gap-2">
                                 <span class="font-mono font-bold">4.</span>
-                                <span><strong>Звездный нуклеосинтез элементов:</strong> Все ключевые биогенные элементы человека (углерод, азот, кислород, железо гемоглобина) образовались в термоядерных реакторах звезд первого поколения, подтверждая физическое родство с космосом.</span>
+                                <span data-i18n="t3_ev4"><strong>Звездный нуклеосинтез:</strong> Все тяжелые атомы в человеческом теле (углерод, железо крови, кальций костей) были синтезированы в недрах умерших звезд.</span>
                             </li>
                         </ul>
                     </div>
@@ -408,172 +382,172 @@
             </div>
         </article>
 
-        <!-- 4. РАЗДЕЛ ВЫВОД -->
-        <section id="comparison" class="mb-24 pt-8 border-t border-dividers">
-            <h2 class="text-3xl sm:text-4xl font-serif font-bold uppercase text-ink mb-6">
+        <!-- 4. РАЗДЕЛ: ВЫВОД -->
+        <section id="conclusion-table" class="mb-24 pt-10 border-t-2 border-ink">
+            <h2 data-i18n="table_heading" class="text-3xl sm:text-4xl font-serif font-bold uppercase text-ink mb-6">
                 Вывод
             </h2>
-            <p class="text-sm text-inkmuted mb-8 leading-relaxed max-w-3xl">
-                Сравнительный эпистемологический анализ трех направлений космической концепции происхождения человека:
+            <p data-i18n="table_lead" class="text-sm text-inkmuted mb-8 leading-relaxed max-w-3xl">
+                Сравнительный анализ трех направлений космической концепции антропогенеза:
             </p>
 
-            <div class="overflow-x-auto">
+            <div class="overflow-x-auto border border-stoneborder">
                 <table class="w-full text-left text-xs border-collapse">
                     <thead>
-                        <tr class="bg-parchment text-ink font-mono uppercase border-b-2 border-ink">
-                            <th class="py-4 px-4">Критерий оценки</th>
-                            <th class="py-4 px-4">Теория панспермии</th>
-                            <th class="py-4 px-4">Палеовизит</th>
-                            <th class="py-4 px-4">Космическая эволюция</th>
+                        <tr class="bg-parchment text-ink font-mono uppercase border-b border-stoneborder">
+                            <th data-i18n="th_col0" class="py-4 px-4 border-r border-stoneborder">Критерий оценки</th>
+                            <th data-i18n="th_col1" class="py-4 px-4 border-r border-stoneborder">Теория панспермии</th>
+                            <th data-i18n="th_col2" class="py-4 px-4 border-r border-stoneborder">Палеовизит</th>
+                            <th data-i18n="th_col3" class="py-4 px-4">Космическая эволюция</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-dividers text-ink font-sans">
+                    <tbody class="divide-y divide-stoneborder text-ink font-sans">
                         <tr>
-                            <td class="py-4 px-4 font-mono font-semibold bg-parchment/50">Научный статус</td>
-                            <td class="py-4 px-4">Признанная астробиологическая гипотеза</td>
-                            <td class="py-4 px-4">Псевдонаучная маргинальная спекуляция</td>
-                            <td class="py-4 px-4">Фундаментальная биогеохимическая парадигма</td>
+                            <td data-i18n="tr1_c0" class="py-4 px-4 font-mono font-semibold bg-parchment/60 border-r border-stoneborder">Научный статус</td>
+                            <td data-i18n="tr1_c1" class="py-4 px-4 border-r border-stoneborder">Признанная астробиологическая гипотеза</td>
+                            <td data-i18n="tr1_c2" class="py-4 px-4 border-r border-stoneborder">Псевдонаучная маргинальная спекуляция</td>
+                            <td data-i18n="tr1_c3" class="py-4 px-4">Фундаментальная биогеохимическая парадигма</td>
                         </tr>
                         <tr>
-                            <td class="py-4 px-4 font-mono font-semibold bg-parchment/50">Фактическая база</td>
-                            <td class="py-4 px-4">Химический анализ метеоритов и космических зондов</td>
-                            <td class="py-4 px-4">Субъективная трактовка мифологии и мегалитов</td>
-                            <td class="py-4 px-4">Изотопная геохронология и астрофизические циклы</td>
+                            <td data-i18n="tr2_c0" class="py-4 px-4 font-mono font-semibold bg-parchment/60 border-r border-stoneborder">Фактическая база</td>
+                            <td data-i18n="tr2_c1" class="py-4 px-4 border-r border-stoneborder">Химический анализ метеоритов и зондов</td>
+                            <td data-i18n="tr2_c2" class="py-4 px-4 border-r border-stoneborder">Субъективная трактовка мифологии и мегалитов</td>
+                            <td data-i18n="tr2_c3" class="py-4 px-4">Изотопная хронология и ритмы Солнца</td>
                         </tr>
                         <tr>
-                            <td class="py-4 px-4 font-mono font-semibold bg-parchment/50">Уязвимость</td>
-                            <td class="py-4 px-4">Не решает проблему первого биохимического синтеза</td>
-                            <td class="py-4 px-4">Полное отсутствие материальных инопланетных следов</td>
-                            <td class="py-4 px-4">Трудность разграничения чисто космических и эндогенных факторов</td>
+                            <td data-i18n="tr3_c0" class="py-4 px-4 font-mono font-semibold bg-parchment/60 border-r border-stoneborder">Слабая сторона</td>
+                            <td data-i18n="tr3_c1" class="py-4 px-4 border-r border-stoneborder">Не решает вопрос первичного абиогенеза</td>
+                            <td data-i18n="tr3_c2" class="py-4 px-4 border-r border-stoneborder">Полное отсутствие материальных инопланетных ДНК</td>
+                            <td data-i18n="tr3_c3" class="py-4 px-4">Сложность отделения эндогенных факторов от космических</td>
                         </tr>
                         <tr>
-                            <td class="py-4 px-4 font-mono font-semibold bg-parchment/50">Процент признания учеными</td>
-                            <td class="py-4 px-4">~50% астробиологов и экзобиологов</td>
-                            <td class="py-4 px-4">&lt;1% профессиональных антропологов</td>
-                            <td class="py-4 px-4">&gt;50% биофизиков, геоэкологов и астрономов</td>
+                            <td data-i18n="tr4_c0" class="py-4 px-4 font-mono font-semibold bg-parchment/60 border-r border-stoneborder">Признание учеными</td>
+                            <td data-i18n="tr4_c1" class="py-4 px-4 border-r border-stoneborder">~50% астробиологов и экзобиологов</td>
+                            <td data-i18n="tr4_c2" class="py-4 px-4 border-r border-stoneborder">&lt;1% профессиональных антропологов</td>
+                            <td data-i18n="tr4_c3" class="py-4 px-4">&gt;50% биофизиков и геоэкологов</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </section>
 
-        <!-- 5. РАЗДЕЛ ЗАКЛЮЧЕНИЕ -->
-        <section class="mb-24 pt-8 border-t border-dividers">
-            <div class="bg-parchment p-8 sm:p-10">
-                <h2 class="text-2xl sm:text-3xl font-serif font-bold uppercase text-ink mb-4">
+        <!-- 5. РАЗДЕЛ: ЗАКЛЮЧЕНИЕ -->
+        <section class="mb-24 pt-10 border-t-2 border-ink">
+            <div class="bg-parchment p-8 sm:p-12 border border-stoneborder">
+                <h2 data-i18n="synth_title" class="text-2xl sm:text-3xl font-serif font-bold uppercase text-ink mb-4">
                     ЗАКЛЮЧЕНИЕ
                 </h2>
                 <div class="w-16 h-0.5 bg-ink mb-6"></div>
-                <div class="space-y-4 text-sm leading-relaxed text-ink text-justify font-serif text-base sm:text-lg">
-                    <p>
-                        Исследование космических аспектов происхождения человека на Земле со всей очевидностью демонстрирует дуализм современного научного знания. Если теория <strong>панспермии</strong> убедительно доказывает возможность экзогенного заноса базового молекулярного строительного материала для жизни, а <strong>космическая эволюция и биосферная связь</strong> в трудах Вернадского и Чижевского раскрывают человека как неразрывную часть вселенских ритмов и солнечного излучения, то концепция <strong>палеовизита</strong> остается в статусе ненаучного мифотворчества.
+                <div class="space-y-4 text-ink text-justify font-serif text-base sm:text-lg leading-relaxed">
+                    <p data-i18n="synth_p1">
+                        Исследование космических аспектов антропогенеза раскрывает глубокий дуализм современного знания. В то время как <strong>панспермия</strong> доказывает реальность внеземной доставки строительных кирпичиков органики, а <strong>космическая эволюция и биосферная связь</strong> в учениях Вернадского и Чижевского доказывают неразрывность жизни на Земле с космическими процессами, концепция <strong>палеовизита</strong> остается вне рамок доказательной науки.
                     </p>
-                    <p class="italic text-inkmuted">
-                        Таким образом, человек является подлинным дитя Космоса не благодаря искусственному вмешательству инопланетных цивилизаций, а в силу глубочайшего физико-химического единства вещества Земли с законами эволюции всей Вселенной.
+                    <p data-i18n="synth_p2" class="italic text-inkmuted">
+                        Человек является подлинной частью Космоса не в силу визита пришельцев, а благодаря глубинному единству атомов своего тела со звездным веществом Вселенной.
                     </p>
                 </div>
             </div>
         </section>
 
-        <!-- 6. РЕАЛЬНЫЕ КЛИКАБЕЛЬНЫЕ ИСТОЧНИКИ -->
-        <section id="sources" class="pt-8 border-t border-dividers">
-            <h3 class="text-xs uppercase tracking-widest font-mono font-bold text-ink mb-6">
+        <!-- 6. РЕАЛЬНЫЕ НАУЧНЫЕ ИСТОЧНИКИ -->
+        <section id="sources" class="pt-10 border-t-2 border-ink">
+            <h3 data-i18n="sources_title" class="text-xs uppercase tracking-widest font-mono font-bold text-ink mb-6">
                 Список литературы и авторитетных источников
             </h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs font-mono">
                 <div class="space-y-4">
-                    <div class="p-4 bg-parchment">
-                        <span class="text-ink font-bold block mb-1">1. Nature — Исследования метеорита Murchison:</span>
-                        <p class="text-inkmuted mb-2">Kvenvolden K. et al. Evidence for extraterrestrial amino-acids and hydrocarbons in the Murchison meteorite.</p>
+                    <div class="p-4 bg-parchment border border-stoneborder">
+                        <span class="text-ink font-bold block mb-1">1. Nature — Murchison Meteorite:</span>
+                        <p class="text-inkmuted mb-2">Kvenvolden K. et al. Extraterrestrial amino acids and hydrocarbons in the Murchison meteorite.</p>
                         <a href="https://www.nature.com/articles/228923a0" target="_blank" rel="noopener noreferrer" class="text-ink font-semibold underline hover:text-inkmuted">
-                            Перейти к статье в журнале Nature →
+                            Nature Journal Article →
                         </a>
                     </div>
 
-                    <div class="p-4 bg-parchment">
-                        <span class="text-ink font-bold block mb-1">2. NASA Astrobiology — Исследование образцов Bennu:</span>
-                        <p class="text-inkmuted mb-2">Миссия OSIRIS-REx: углерод и водоносные минералы в первичном веществе астероида.</p>
+                    <div class="p-4 bg-parchment border border-stoneborder">
+                        <span class="text-ink font-bold block mb-1">2. NASA Astrobiology:</span>
+                        <p class="text-inkmuted mb-2">OSIRIS-REx & Asteroid Bennu: carbon and primordial water delivery to Earth.</p>
                         <a href="https://astrobiology.nasa.gov/" target="_blank" rel="noopener noreferrer" class="text-ink font-semibold underline hover:text-inkmuted">
-                            Официальный портал NASA Astrobiology →
+                            NASA Astrobiology Portal →
                         </a>
                     </div>
 
-                    <div class="p-4 bg-parchment">
-                        <span class="text-ink font-bold block mb-1">3. Harvard ADS (Astrophysics Data System):</span>
-                        <p class="text-inkmuted mb-2">Hoyle F., Wickramasinghe C. Публикации по теории космического происхождения органики.</p>
+                    <div class="p-4 bg-parchment border border-stoneborder">
+                        <span class="text-ink font-bold block mb-1">3. Harvard Astrophysics Data System (ADS):</span>
+                        <p class="text-inkmuted mb-2">Hoyle F., Wickramasinghe C. Publications on interstellar organics and panspermia.</p>
                         <a href="https://ui.adsabs.harvard.edu/abs/1977Natur.268..610H/abstract" target="_blank" rel="noopener noreferrer" class="text-ink font-semibold underline hover:text-inkmuted">
-                            Открыть в астрофизическом архиве Harvard ADS →
+                            Harvard ADS Archive →
                         </a>
                     </div>
                 </div>
 
                 <div class="space-y-4">
-                    <div class="p-4 bg-parchment">
+                    <div class="p-4 bg-parchment border border-stoneborder">
                         <span class="text-ink font-bold block mb-1">4. Internet Archive — В. И. Вернадский:</span>
-                        <p class="text-inkmuted mb-2">Вернадский В. И. «Биосфера» (1926). Учение о космическом живом веществе планеты.</p>
+                        <p class="text-inkmuted mb-2">Vernadsky V. I. «The Biosphere» (1926). Planetary and cosmic living matter.</p>
                         <a href="https://archive.org/details/biosphere0000vern" target="_blank" rel="noopener noreferrer" class="text-ink font-semibold underline hover:text-inkmuted">
-                            Читать труд в архиве Internet Archive →
+                            Internet Archive Collection →
                         </a>
                     </div>
 
-                    <div class="p-4 bg-parchment">
-                        <span class="text-ink font-bold block mb-1">5. Science Magazine — Циклы Миланковича:</span>
-                        <p class="text-inkmuted mb-2">Hays J. D., Imbrie J., Shackleton N. J. Variations in the Earth's Orbit: Pacemaker of the Ice Ages.</p>
+                    <div class="p-4 bg-parchment border border-stoneborder">
+                        <span class="text-ink font-bold block mb-1">5. Science Magazine — Milankovitch Cycles:</span>
+                        <p class="text-inkmuted mb-2">Hays J. D. et al. Variations in the Earth's Orbit: Pacemaker of the Ice Ages.</p>
                         <a href="https://www.science.org/doi/10.1126/science.194.4270.1121" target="_blank" rel="noopener noreferrer" class="text-ink font-semibold underline hover:text-inkmuted">
-                            Открыть исследование в Science Magazine →
+                            Science Magazine DOI →
                         </a>
                     </div>
 
-                    <div class="p-4 bg-parchment">
-                        <span class="text-ink font-bold block mb-1">6. Карл Саган — Критика палеовизита:</span>
-                        <p class="text-inkmuted mb-2">The Skeptical Inquirer / Cornell Library: Анализ гипотез палеоконтакта и научный метод.</p>
+                    <div class="p-4 bg-parchment border border-stoneborder">
+                        <span class="text-ink font-bold block mb-1">6. Skeptical Inquirer — Палеовизит:</span>
+                        <p class="text-inkmuted mb-2">Carl Sagan and Archaeological critique of ancient astronaut hypotheses.</p>
                         <a href="https://skepticalinquirer.org/" target="_blank" rel="noopener noreferrer" class="text-ink font-semibold underline hover:text-inkmuted">
-                            Архив Skeptical Inquirer →
+                            Skeptical Inquirer Archive →
                         </a>
                     </div>
                 </div>
             </div>
         </section>
 
-    </div>
+    </main>
 
-    <!-- 7. ФУТТЕР — ПОЛНОЭКРАННЫЙ СЛАЙД ДЛЯ ПРОЕКТОРА (min-h-screen) С ВИДЕО msshha.m4 -->
-    <footer id="projector-slide" class="min-h-screen bg-projectordark text-milk flex flex-col justify-between items-center text-center p-8 sm:p-16">
+    <!-- 7. ФУТТЕР: ПОЛНОЭКРАННЫЙ СЛАЙД ДЛЯ ПРОЕКТОРА (min-h-screen) С ВИДЕО msshha.m4 -->
+    <footer id="projector-slide" class="min-h-screen bg-projectordark text-milk flex flex-col justify-between items-center text-center p-8 sm:p-14">
         
-        <!-- Верхняя часть: Спасибо за внимание -->
-        <div class="pt-8">
-            <h2 class="text-5xl sm:text-7xl lg:text-8xl font-serif font-bold uppercase tracking-tight text-milk">
+        <!-- Верх: Спасибо за внимание -->
+        <div class="pt-6">
+            <h2 data-i18n="thanks_title" class="text-5xl sm:text-7xl lg:text-8xl font-serif font-bold uppercase tracking-tight text-milk">
                 Спасибо за внимание.
             </h2>
             <div class="w-32 h-0.5 bg-milk/30 mx-auto mt-6"></div>
         </div>
 
-        <!-- Средняя часть: Данные о проекте и список участников -->
+        <!-- Центр: Сведения об учебном проекте и участники -->
         <div class="max-w-2xl my-8">
-            <p class="text-xl sm:text-2xl font-serif text-milk/90 leading-snug mb-8">
+            <p data-i18n="project_badge" class="text-xl sm:text-2xl font-serif text-milk/90 leading-snug mb-8">
                 Научно-учебный проект по Всемирной Истории учеников 10 «В» класса
             </p>
 
             <div class="max-w-md mx-auto text-center">
-                <span class="text-xs font-mono uppercase tracking-widest text-zinc-400 block mb-4">
+                <span data-i18n="participants_label" class="text-xs font-mono uppercase tracking-widest text-zinc-400 block mb-4">
                     Участвовали:
                 </span>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-8 text-base sm:text-lg font-serif text-zinc-200">
                     <div class="font-bold text-milk">Болатхан Мансур</div>
-                    <div>Ученик1</div>
-                    <div>Ученик2</div>
-                    <div>Ученик3</div>
-                    <div>Ученик4</div>
-                    <div>Ученик5</div>
-                    <div>Ученик6</div>
-                    <div>Ученик7</div>
+                    <div data-i18n="student_1">Ученик1</div>
+                    <div data-i18n="student_2">Ученик2</div>
+                    <div data-i18n="student_3">Ученик3</div>
+                    <div data-i18n="student_4">Ученик4</div>
+                    <div data-i18n="student_5">Ученик5</div>
+                    <div data-i18n="student_6">Ученик6</div>
+                    <div data-i18n="student_7">Ученик7</div>
                 </div>
             </div>
         </div>
 
-        <!-- Нижняя часть: Встроенное видео msshha.m4 -->
-        <div class="w-full max-w-3xl pb-6">
-            <div class="bg-black/40 p-2 border border-zinc-800">
+        <!-- Низ: Видеоплеер msshha.m4 -->
+        <div class="w-full max-w-3xl pb-4">
+            <div class="bg-black/60 p-2 border border-zinc-800">
                 <video 
                     controls 
                     loop 
@@ -584,18 +558,386 @@
                 >
                     <source src="msshha.m4" type="video/mp4">
                     <source src="msshha.m4" type="video/quicktime">
-                    Ваш браузер не поддерживает воспроизведение видео файла msshha.m4.
+                    Видео msshha.m4 не найдено или формат не поддерживается.
                 </video>
             </div>
             <span class="text-[11px] font-mono text-zinc-400 block mt-3">
-                
+                Видеоматериал: msshha.m4
             </span>
             <div class="mt-4 text-xs font-mono text-zinc-500">
-                <a href="#branches" class="hover:text-zinc-300 underline">↑ Вернуться к началу сайта</a>
+                <a href="#branching-section" data-i18n="btn_to_top" class="hover:text-zinc-300 underline">
+                    ↑ К началу исследования
+                </a>
             </div>
         </div>
 
     </footer>
 
+    <!-- СИСТЕМА ЛОКАЛИЗАЦИИ KZ / RU / EN -->
+    <script>
+        const i18nData = {
+            ru: {
+                docTitle: "Космические теории человечества",
+                headerTitle: "Космические теории человечества",
+                branch_heading: "Ответвление космической концепции",
+                branch_subheading: "Дифференциация единой космической теории на три вектора происхождения человека",
+                core_label: "Центральное ядро",
+                core_title: "Космическая теория",
+                branch1_num: "Направление I",
+                branch1_name: "Теория панспермии",
+                branch1_desc: "Занесение первичных органических матриц, аминокислот и протоклеток метеоритами и кометами как экзогенный фундамент биосферы Земли.",
+                branch2_num: "Направление II",
+                branch2_name: "Палеовизит",
+                branch2_desc: "Концепция искусственного вмешательства: целенаправленная генетическая трансформация гоминид высокоразвитой внеземной цивилизацией.",
+                branch3_num: "Направление III",
+                branch3_name: "Космическая эволюция и биосферная связь",
+                branch3_desc: "Человек как органический продукт целостной биосферы, чье видообразование управлялось солнечной активностью, космическими лучами и вселенскими ритмами.",
+                link_read_detail: "К детальному разбору ↓",
+
+                t1_badge: "Исследовательский раздел I",
+                t1_title: "Теория панспермии",
+                t1_subtitle: "Экзогенный занос молекулярных и биогенных предпосылок земной жизни",
+                label_author: "Основоположники и актуальность",
+                t1_author_text: "Идея занесения спор предложена Г. Рихтером (1865 г.) и физиком Г. Гельмгольцем (1871 г.). Расчет переноса микрочастиц световым давлением выполнил Сванте Аррениус (1908 г.). В 1973 г. лауреат Нобелевской премии по открытию структуры ДНК Фрэнсис Крик и Лесли Оргел развили концепцию «направленной панспермии». В XXI в. теория актуализирована миссиями NASA (Stardust, OSIRIS-REx) и JAXA (Hayabusa-2).",
+                label_hypothesis: "Суть теории / Гипотеза",
+                t1_hypo_text: "Жизнь на Земле не синтезировалась «с чистого листа» исключительно из абиогенного бульона. Аминокислоты, предшественники РНК/ДНК и липиды были доставлены из межзвездного пространства кометами в эпоху поздней тяжелой бомбардировки. Вся биохимия предков человека уходит корнями во внеземной предбиологический синтез.",
+                label_supporters: "Приверженцы и опровержения",
+                t1_supp_text: "Около 50% исследователей в астробиологии признают кометную доставку органики и воды фактом. Концепцию защищали астрофизики Фред Хойл и Чандра Викрамасингхе. Около 50% биохимиков классической школы (А. Опарин, С. Миллер) критикуют теорию за то, что она лишь переносит нерешенный вопрос первичного зарождения репликации в космическое пространство.",
+                t1_quote: "«Вероятность возникновения живой клетки случайным соединением химических элементов сопоставима с вероятностью того, что пронесшийся над свалкой торнадо соберет исправный Boeing 747.»",
+                t1_quote_author: "— Сэр Фред Хойл, астрофизик",
+                t1_img_caption: "Фрагмент углистого хондрита Murchison: лабораторно доказано наличие внеземных аминокислот",
+                label_evidence: "Доказательства (4 ключевых факта):",
+                t1_ev1: "<strong>Аминокислоты в хондритах:</strong> В метеорите Мерчисон (1969 г.) выявлено более 70 аминокислот с характерным изотопным сдвигом углерода-13, подтверждающим внеземное происхождение.",
+                t1_ev2: "<strong>Зонды Hayabusa-2 и OSIRIS-REx:</strong> В чистейших пробах грунта астероидов Рюгу и Бенну спектрально и химически обнаружены урацил, рибоза и азотистые основания.",
+                t1_ev3: "<strong>Эксперименты в открытом космосе:</strong> Эксперименты «Биориск» и Tanpopo на обшивке МКС доказали, что споры бактерий и Deinococcus radiodurans выживают в открытом космическом вакууме более 3 лет.",
+                t1_ev4: "<strong>Данные аппарата «Розетта»:</strong> В коме комета 67P/Чурюмова-Герасименко обнаружены простейшая аминокислота глицин и фосфор, образующие остов ДНК.",
+
+                t2_badge: "Исследовательский раздел II",
+                t2_title: "Палеовизит (теория внешнего вмешательства)",
+                t2_subtitle: "Гипотеза целенаправленной генетической инженерии древних гоминид",
+                t2_author_text: "Математическое обоснование гипотезы сформулировал советский математик Матест Агрест (1959 г.). Всемирный резонанс гипотеза получила благодаря публикациям Эриха фон Дэникена («Колесницы богов?», 1968 г.) и востоковеда Захарии Ситчина. Тема широко представлена в медиапространстве и дискуссиях о причинах резкого скачка объема головного мозга у рода Homo.",
+                t2_hypo_text: "Появление анатомически современного человека (Homo sapiens) и взрывное развитие речи, мышления и орудийной деятельности произошли в результате искусственной генетической модификации земных приматов высокоразвитой космической цивилизацией. Внеземные кураторы также рассматриваются сторонниками как источник первичных технологий и астрономических знаний древних государств.",
+                t2_supp_text: "В академическом сообществе теория отвергается: менее 1% профессиональных антропологов и историков признают палеовизит. Среди широкой общественности в ряде стран от 25% до 35% опрошенных допускают идею палеоконтакта. Академическая наука подчеркивает, что палеонтологическая летопись демонстрирует плавную постепенность эволюции без следов внешнего генетического вмешательства.",
+                t2_quote: "«Экстраординарные утверждения требуют экстраординарных доказательств. Объяснять монументальные храмы и достижения древних цивилизаций вмешательством пришельцев — значит оскорблять подлинный гений и труд самого человека.»",
+                t2_quote_author: "— Карл Саган, астрофизик и популяризатор науки",
+                t2_img_placeholder: "[ МЕСТО ДЛЯ ФОТО ]",
+                t2_img_title: "Петроглифы Тассили-н'Адджер",
+                t2_img_caption: "Фреска «Большой бог марсиан» (Сахара, Алжир) в интерпретации сторонников палеоконтакта",
+                t2_ev1: "<strong>Утроение объема головного мозга:</strong> Скачок от 450 см³ у австралопитека до 1400 см³ у кроманьонца сторонники объясняют точечной генной терапией.",
+                t2_ev2: "<strong>Наскальные росписи со «шлемами»:</strong> Рисунки плато Тассили-н'Адджер (Алжир), петроглифы Валь-Камоники и статуэтки Догу эпохи Дзёмон с чертами скафандров.",
+                t2_ev3: "<strong>Древневосточные тексты:</strong> Шумерский эпос о сотворении первых людей аннунаками и индийские трактаты с описанием летательных колесниц-виманов.",
+                t2_ev4: "<strong>Полигональная мегалитическая кладка:</strong> Технологии подгонки монолитов Пума-Пунку, Баальбека и пирамид с ориентацией по поясу Ориона.",
+
+                t3_badge: "Исследовательский раздел III",
+                t3_title: "Космическая эволюция и биосферная связь",
+                t3_subtitle: "Антропогенез как планетарно-космический процесс ноосферного развития",
+                t3_author_text: "Основоположниками концепции являются академик В. И. Вернадский (создатель биогеохимии и учения о ноосфере), А. Л. Чижевский (основатель гелиобиологии и космического естествознания) и философ К. Э. Циолковский. В современной науке направление находит прямое подтверждение в исследованиях космической погоды и институтах геофизики.",
+                t3_hypo_text: "Человек и биосфера — это открытая термодинамическая система, непрерывно аккумулирующая энергию Вселенной. Ключевые мутации предков людей, смены геологических эпох и расцвет цивилизаций синхронизированы с ритмами Солнца, космической радиацией и положением Солнечной системы в спиральных рукавах Галактики.",
+                t3_supp_text: "Свыше 50% биофизиков, геоэкологов и астрофизиков разделяют учение о влиянии космических факторов на земную жизнь. Оппоненты предостерегают от упрощенного «космического фатализма», указывая, что исторические события обусловлены в первую очередь социально-экономическими законами общества.",
+                t3_quote: "«Человек на Земле не случаен. Он представляет собой закономерный геологический и космический фактор, преобразующий биосферу в ноосферу — сферу разума.»",
+                t3_quote_author: "— Академик В. И. Вернадский",
+                t3_img_placeholder: "[ МЕСТО ДЛЯ ФОТО ]",
+                t3_img_title: "Гелиобиологические ритмы биосферы",
+                t3_img_caption: "Корреляция циклов активности Солнца и биосферных процессов Земли по Чижевскому",
+                t3_ev1: "<strong>Инверсии магнитного поля:</strong> Ослабление геомагнитного щита во время инверсий (Матуяма-Брюнес 780 тыс. лет назад) резко усиливало космическое облучение и мутагенез гоминид.",
+                t3_ev2: "<strong>Изотопы железа-60 (<sup>60</sup>Fe):</strong> Обнаружение слоев космогенного железа-60 на океаническом дне датирует вспышку близкой сверхновой ~2,6 млн лет назад, совпавшую с началом эпохи плейстоцена.",
+                t3_ev3: "<strong>Астрономические циклы Миланковича:</strong> Колебания эксцентриситета орбиты и прецессия земной оси вызывали ледниковые периоды, вынуждая гоминид объединяться в сообщества.",
+                t3_ev4: "<strong>Звездный нуклеосинтез:</strong> Все тяжелые атомы в человеческом теле (углерод, железо крови, кальций костей) были синтезированы в недрах умерших звезд.",
+
+                table_heading: "Вывод",
+                table_lead: "Сравнительный анализ трех направлений космической концепции антропогенеза:",
+                th_col0: "Критерий оценки",
+                th_col1: "Теория панспермии",
+                th_col2: "Палеовизит",
+                th_col3: "Космическая эволюция",
+                tr1_c0: "Научный статус",
+                tr1_c1: "Признанная астробиологическая гипотеза",
+                tr1_c2: "Псевдонаучная маргинальная спекуляция",
+                tr1_c3: "Фундаментальная биогеохимическая парадигма",
+                tr2_c0: "Фактическая база",
+                tr2_c1: "Химический анализ метеоритов и зондов",
+                tr2_c2: "Субъективная трактовка мифологии и мегалитов",
+                tr2_c3: "Изотопная хронология и ритмы Солнца",
+                tr3_c0: "Слабая сторона",
+                tr3_c1: "Не решает вопрос первичного абиогенеза",
+                tr3_c2: "Полное отсутствие материальных инопланетных ДНК",
+                tr3_c3: "Сложность отделения эндогенных факторов от космических",
+                tr4_c0: "Признание учеными",
+                tr4_c1: "~50% астробиологов и экзобиологов",
+                tr4_c2: "&lt;1% профессиональных антропологов",
+                tr4_c3: "&gt;50% биофизиков и геоэкологов",
+
+                synth_title: "ЗАКЛЮЧЕНИЕ",
+                synth_p1: "Исследование космических аспектов антропогенеза раскрывает глубокий дуализм современного знания. В то время как <strong>панспермия</strong> доказывает реальность внеземной доставки строительных кирпичиков органики, а <strong>космическая эволюция и биосферная связь</strong> в учениях Вернадского и Чижевского доказывают неразрывность жизни на Земле с космическими процессами, концепция <strong>палеовизита</strong> остается вне рамок доказательной науки.",
+                synth_p2: "Человек является подлинной частью Космоса не в силу визита пришельцев, а благодаря глубинному единству атомов своего тела со звездным веществом Вселенной.",
+
+                sources_title: "Список литературы и авторитетных источников",
+                thanks_title: "Спасибо за внимание.",
+                project_badge: "Научно-учебный проект по Всемирной Истории учеников 10 «В» класса",
+                participants_label: "Участвовали:",
+                student_1: "Ученик1",
+                student_2: "Ученик2",
+                student_3: "Ученик3",
+                student_4: "Ученик4",
+                student_5: "Ученик5",
+                student_6: "Ученик6",
+                student_7: "Ученик7",
+                btn_to_top: "↑ К началу исследования"
+            },
+            kz: {
+                docTitle: "Адамзаттың ғарыштық теориялары",
+                headerTitle: "Адамзаттың ғарыштық теориялары",
+                branch_heading: "Ғарыштық тұжырымдаманың тармақталуы",
+                branch_subheading: "Біртұтас ғарыштық теорияның адамның шығу тегінің үш бағытына жіктелуі",
+                core_label: "Орталық ядро",
+                core_title: "Ғарыштық теория",
+                branch1_num: "I бағыт",
+                branch1_name: "Панспермия теориясы",
+                branch1_desc: "Жер биосферасының экзогендік негізі ретінде бастапқы органикалық матрицалар мен аминқышқылдарының метеориттер мен кометалар арқылы келуі.",
+                branch2_num: "II бағыт",
+                branch2_name: "Палеосапар (Сыртқы араласу теориясы)",
+                branch2_desc: "Жасанды араласу тұжырымдамасы: жоғары дамыған жерден тыс өркениет тарапынан ежелгі гоминидтерді мақсатты генетикалық түрлендіру.",
+                branch3_num: "III бағыт",
+                branch3_name: "Ғарыштық эволюция және биосфералық байланыс",
+                branch3_desc: "Адам біртұтас биосфераның ажырамас өнімі ретінде: түр түзілу Күн белсенділігі, ғарыштық сәулелер және Әлем ырғақтарымен басқарылды.",
+                link_read_detail: "Толық талдауға өту ↓",
+
+                t1_badge: "Зерттеу бөлімі I",
+                t1_title: "Панспермия теориясы",
+                t1_subtitle: "Жердегі тіршіліктің молекулалық және биогендік алғышарттарының сырттан әкелінуі",
+                label_author: "Негізін салушылар және өзектілігі",
+                t1_author_text: "Тіршілік спораларының тасымалдану идеясын Г. Рихтер (1865 ж.) және физик Г. Гельмгольц (1871 ж.) ұсынды. Жарық қысымымен бөлшектердің қозғалысын Сванте Аррениус (1908 ж.) есептеді. 1973 жылы ДНҚ құрылымын ашқан Нобель сыйлығының лауреаты Фрэнсис Крик пен Лесли Оргел «бағытталған панспермия» тұжырымдамасын дамытты. XXI ғасырда бұл теория NASA (OSIRIS-REx) және JAXA (Hayabusa-2) миссиялары арқылы өзектендірілді.",
+                label_hypothesis: "Теорияның мәні / Гипотеза",
+                t1_hypo_text: "Жердегі тіршілік тек абиогендік сорпадан «нөлден» синтезделген жоқ. Аминқышқылдары, РНҚ/ДНҚ алғышарттары және липидтер Жерге ерте метеориттік бомбалау кезеңінде кометалар арқылы жеткізілді. Адамның барлық биохимиялық негізі жерден тыс пребиологиялық синтезге сүйенеді.",
+                label_supporters: "Жақтастары мен теріске шығарушылар",
+                t1_supp_text: "Астробиология саласындағы зерттеушілердің шамамен 50%-ы органика мен судың кометалық жеткізілуін дәлелденген факт деп санайды. Бұл бағытты Фред Хойл және Чандра Викрамасингхе қорғады. Классикалық мектептің биохимиктерінің 50%-ы (А. Опарин, С. Миллер) бұл көзқарасты тіршіліктің бастапқы пайда болу құпиясын шешпей, тек ғарышқа ауыстыра салады деп сынайды.",
+                t1_quote: "«Тірі жасушаның химиялық элементтердің кездейсоқ қосылысынан пайда болу ықтималдығы қоқыс алаңынан өткен дауылдың жұмысқа дайын Boeing 747 ұшағын құрастырып кетуімен пара-пар.»",
+                t1_quote_author: "— Сэр Фред Хойл, астрофизик",
+                t1_img_caption: "Murchison көміртекті хондритінің сынығы: жерден тыс аминқышқылдарының бар екені зертханалық түрде дәлелденген",
+                label_evidence: "Дәлелдер (4 негізгі дәйек):",
+                t1_ev1: "<strong>Хондриттердегі аминқышқылдары:</strong> Мерчисон метеоритінде (1969 ж.) 70-тен астам аминқышқылы табылып, көміртегі-13 изотоптық ығысуы олардың ғарыштық тегін растады.",
+                t1_ev2: "<strong>Hayabusa-2 және OSIRIS-REx зондтары:</strong> Рюгу және Бенну астероидтарынан әкелінген таза топырақ үлгілерінен урацил, рибоза және азоттық негіздер тіркелді.",
+                t1_ev3: "<strong>Ашық ғарыштағы эксперименттер:</strong> ХҒС сыртындағы сынақтар бактерия споралары мен Deinococcus radiodurans вакуум мен қатал сәулеленуде 3 жылдан астам өмір сүре алатынын көрсетті.",
+                t1_ev4: "<strong>«Розетта» аппаратының деректері:</strong> 67P/Чурюмов-Герасименко кометасынан қарапайым аминқышқылы глицин және ДНҚ негізін құрайтын фосфор табылды.",
+
+                t2_badge: "Зерттеу бөлімі II",
+                t2_title: "Палеосапар (Сыртқы араласу теориясы)",
+                t2_subtitle: "Ежелгі гоминидтерді мақсатты түрде гендік инженериялау гипотезасы",
+                t2_author_text: "Бұл гипотезаның математикалық негізін кеңестік ғалым Матест Агрест (1959 ж.) жасады. Эрих фон Дэникеннің («Құдайлардың күймелері?», 1968 ж.) және Захария Ситчиннің кітаптары арқылы кең танымал болды. Қазіргі таңда бұл тақырып сананың секірісті дамуы мен ми көлемінің күрт өсуі туралы пікірталастарда белсенді талқыланады.",
+                t2_hypo_text: "Қазіргі саналы адамның (Homo sapiens) пайда болуы және тіл мен ойлау қабілетінің шапшаң дамуы жоғары дамыған бөтенпланеталық өркениеттің ежелгі приматтарға генетикалық араласуы нәтижесінде жүзеге асты. Сондай-ақ бөтен ғаламшарлықтар ежелгі мемлекеттерге астрономиялық және құрылыс білімін беруші ретінде қарастырылады.",
+                t2_supp_text: "Академиялық қауымдастықта бұл идея қабылданбайды: кәсіби антропологтар мен тарихшылардың 1%-дан азы палеосапарды шындыққа жанасады деп есептейді. Ал халық арасында сауалнамалар бойынша 25%-дан 35%-ға дейін адам осы болжамға сенеді. Ғылым эволюциялық тізбектің генетикалық араласусыз-ақ біртіндеп дамығанын дәлелдейді.",
+                t2_quote: "«Төтенше мәлімдемелер төтенше дәлелдерді талап етеді. Ежелгі өркениеттердің еңселі ғибадатханалары мен жетістіктерін келімсектерге телу — адамның төл данышпандығы мен еңбегін қорлаумен бірдей.»",
+                t2_quote_author: "— Карл Саган, астрофизик және ғылым дәріптеушісі",
+                t2_img_placeholder: "[ СУРЕТ ОРНЫ ]",
+                t2_img_title: "Тассили-н'Адджер петроглифтері",
+                t2_img_caption: "Палеобайланыс жақтастарының көзқарасы бойынша скафандр киген бейне (Сахара, Алжир)",
+                t2_ev1: "<strong>Ми көлемінің үш есе артуы:</strong> Австралопитектің 450 см³-нен кроманьонның 1400 см³-не дейін күрт секірісін жақтастар бағытталған гендік терапиямен түсіндіреді.",
+                t2_ev2: "<strong>Шлем киген жартас суреттері:</strong> Тассили-н'Адджер (Алжир), Валь-Камоника петроглифтері мен Дзёмон дәуірінің Догу мүсіншелеріндегі скафандрға ұқсас элементтер.",
+                t2_ev3: "<strong>Ежелгі мәтіндер мен эпостар:</strong> Шумерлердің адамның аннунактар тарапынан жаратылуы туралы жазбалары және үнді дастандарындағы ұшатын вимандар сипаттамасы.",
+                t2_ev4: "<strong>Полигоналды мегалиттік құрылыстар:</strong> Пума-Пунку, Баальбек монолиттері мен Орион шоқжұлдызына бағытталған пирамидалардың дәлдігі.",
+
+                t3_badge: "Зерттеу бөлімі III",
+                t3_title: "Ғарыштық эволюция және биосфералық байланыс",
+                t3_subtitle: "Антропогенез ноосфералық дамудың планетарлық-ғарыштық үдерісі ретінде",
+                t3_author_text: "Тұжырымдаманың негізін академик В. И. Вернадский (биогеохимия мен ноосфера ілімінің авторы), А. Л. Чижевский (гелиобиологияның негізін қалаушы) және К. Э. Циолковский қалаған. Қазіргі геофизика мен ғарыштық ауа райы ғылымында бұл бағыт толық расталуда.",
+                t3_hypo_text: "Адам мен биосфера — Ғаламның энергиясын үнемі сіңіріп отыратын ашық жүйе. Адам ата-бабаларының мутациясы, биологиялық дағдарыстар мен өркениеттің гүлденуі Күн белсенділігімен, ғарыштық сәулеленумен және Күн жүйесінің Галактикадағы қозғалысымен тікелей байланысты.",
+                t3_supp_text: "Биофизиктер, геоэкологтар мен астрофизиктердің 50%-дан астамы ғарыштық факторлардың тіршілікке әсерін толық қолдайды. Ал сыншылар тарихи оқиғаларды тек Күн дақтарына телуді «ғарыштық фатализм» деп ескертеді.",
+                t3_quote: "«Адам Жерде кездейсоқ жаратылыс емес. Ол биосфераны жаңа деңгейге — ақыл-ой саласы ноосфераға айналдыратын заңды геологиялық және ғарыштық күш.»",
+                t3_quote_author: "— Академик В. И. Вернадский",
+                t3_img_placeholder: "[ СУРЕТ ОРНЫ ]",
+                t3_img_title: "Биосфераның гелиобиологиялық ырғақтары",
+                t3_img_caption: "Чижевский бойынша Күн белсенділігі мен биосфералық процестердің байланысы",
+                t3_ev1: "<strong>Геомагниттік инверсиялар:</strong> Магниттік қалқан әлсіреген кезеңдерде (Матуяма-Брюнес инверсиясы) ғарыштық радиация күшейіп, гоминидтер мутагенезін жеделдетті.",
+                t3_ev2: "<strong>Темір-60 изотоптары (<sup>60</sup>Fe):</strong> Мұхит түбіндегі темір-60 шөгінділері осыдан 2,6 млн жыл бұрын аса жаңа жұлдыздың жарқырауын және плейстоценнің басталуын көрсетеді.",
+                t3_ev3: "<strong>Миланкович циклдері:</strong> Жер орбитасының тербелістері мұз басу дәуірлерін тудырып, ежелгі адамдарды қауымдасып тіршілік етуге итермеледі.",
+                t3_ev4: "<strong>Жұлдыздық нуклеосинтез:</strong> Адам денесіндегі барлық маңызды атомдар (көміртегі, сүйектегі кальций, қандағы темір) жұлдыздардың қойнауында түзілген.",
+
+                table_heading: "Вывод (Қорытынды)",
+                table_lead: "Адамның шығу тегі туралы үш ғарыштық бағыттың салыстырмалы кестесі:",
+                th_col0: "Бағалау критерийі",
+                th_col1: "Панспермия теориясы",
+                th_col2: "Палеосапар",
+                th_col3: "Ғарыштық эволюция",
+                tr1_c0: "Ғылыми мәртебесі",
+                tr1_c1: "Мойындалған астробиологиялық болжам",
+                tr1_c2: "Жалған ғылыми маргиналды болжам",
+                tr1_c3: "Іргелі биогеохимиялық парадигма",
+                tr2_c0: "Фактілік базасы",
+                tr2_c1: "Метеориттер мен ғарыш зондтарының химиялық деректері",
+                tr2_c2: "Мифтер мен мегалиттердің субъективті сипаттамасы",
+                tr2_c3: "Изотоптық хронология және Күн ырғақтары",
+                tr3_c0: "Әлсіз тұсы",
+                tr3_c1: "Бастапқы абиогенез сұрағын толық шешпейді",
+                tr3_c2: "Бөтенғаламшарлық ДНҚ-ның нақты дәлелі жоқ",
+                tr3_c3: "Эндогендік факторларды ғарыштан ажырату қиындығы",
+                tr4_c0: "Ғалымдардың қолдауы",
+                tr4_c1: "~50% астробиологтар мен экзобиологтар",
+                tr4_c2: "&lt;1% кәсіби антропологтар",
+                tr4_c3: "&gt;50% биофизиктер мен геоэкологтар",
+
+                synth_title: "ЗАКЛЮЧЕНИЕ (ТҮЙІН)",
+                synth_p1: "Антропогенездің ғарыштық қырларын зерттеу заманауи ғылымның терең дуализмін көрсетеді. <strong>Панспермия</strong> органикалық құрылыс материалдарының ғарыштан жеткізілуін дәлелдесе, Вернадский мен Чижевский негізін қалаған <strong>ғарыштық эволюция мен биосфералық байланыс</strong> адамның бүкіләлемдік ырғақтармен ажырамас бірлігін дәйектейді. Ал <strong>палеосапар</strong> идеясы дәлелді ғылым шеңберінен тыс миф болып қала береді.",
+                synth_p2: "Адам Ғарыштың нағыз бөлшегі болып табылады — бірақ келімсектердің араласуынан емес, адам тәніндегі атомдардың Ғаламдағы жұлдыздық затпен туыстығы арқасында.",
+
+                sources_title: "Әдебиеттер мен беделді ғылыми дереккөздер тізімі",
+                thanks_title: "Назарларыңызға рақмет.",
+                project_badge: "10 «В» сынып оқушыларының Дүниежүзі тарихы пәні бойынша ғылыми-оқу жобасы",
+                participants_label: "Қатысқандар:",
+                student_1: "Оқушы1",
+                student_2: "Оқушы2",
+                student_3: "Оқушы3",
+                student_4: "Оқушы4",
+                student_5: "Оқушы5",
+                student_6: "Оқушы6",
+                student_7: "Оқушы7",
+                btn_to_top: "↑ Зерттеудің басына оралу"
+            },
+            en: {
+                docTitle: "Cosmic Theories of Humanity",
+                headerTitle: "Cosmic Theories of Humanity",
+                branch_heading: "Branching of the Cosmic Concept",
+                branch_subheading: "Differentiation of the unified cosmic idea into three anthropic origin hypotheses",
+                core_label: "Central Core",
+                core_title: "Cosmic Theory",
+                branch1_num: "Direction I",
+                branch1_name: "Panspermia Theory",
+                branch1_desc: "Delivery of primordial organic matrices, amino acids, and protocells via meteorites and comets as the exogenous foundation of Earth's biosphere.",
+                branch2_num: "Direction II",
+                branch2_name: "Paleocontact (External Intervention)",
+                branch2_desc: "The hypothesis of artificial intervention: deliberate genetic modification of hominids by an advanced extraterrestrial intelligence.",
+                branch3_num: "Direction III",
+                branch3_name: "Cosmic Evolution & Biospheric Connection",
+                branch3_desc: "Humanity as an organic outcome of the unified biosphere, whose speciation was driven by solar cycles, cosmic rays, and universal rhythms.",
+                link_read_detail: "To detailed analysis ↓",
+
+                t1_badge: "Research Division I",
+                t1_title: "Panspermia Theory",
+                t1_subtitle: "Exogenous delivery of molecular and biogenic precursors of terrestrial life",
+                label_author: "Originators & Current Relevance",
+                t1_author_text: "The concept of interstellar spore delivery was proposed by H. Richter (1865) and physicist H. von Helmholtz (1871). The physics of radiation pressure transfer was formulated by Svante Arrhenius (1908). In 1973, DNA co-discoverer and Nobel laureate Francis Crick and Leslie Orgel developed the concept of 'Directed Panspermia'. In the 21st century, missions like NASA OSIRIS-REx and JAXA Hayabusa-2 revitalized empirical panspermia research.",
+                label_hypothesis: "Core Hypothesis",
+                t1_hypo_text: "Life on Earth did not originate from scratch solely within an isolated primordial soup. Prebiotic amino acids, RNA precursors, and amphiphilic lipids were delivered from interstellar space during the Late Heavy Bombardment. Human biochemical architecture is directly rooted in universal extraterrestrial prebiotic synthesis.",
+                label_supporters: "Supporters & Scientific Critique",
+                t1_supp_text: "Roughly 50% of researchers in astrobiology accept the delivery of organics and water by comets as empirical fact. Champions included astrophysicists Sir Fred Hoyle and Chandra Wickramasinghe. Conversely, ~50% of classical biochemists critique panspermia for merely deferring the fundamental problem of the origin of replication into deep space.",
+                t1_quote: "«The probability of the spontaneous formation of life from inanimate matter is comparable to the probability that a tornado sweeping through a junkyard might assemble a Boeing 747 from the materials therein.»",
+                t1_quote_author: "— Sir Fred Hoyle, Astrophysicist",
+                t1_img_caption: "Murchison carbonaceous chondrite: proven presence of extraterrestrial prebiotic amino acids",
+                label_evidence: "Evidence (4 Key Facts):",
+                t1_ev1: "<strong>Amino acids in chondrites:</strong> Over 70 extraterrestrial amino acids with distinctive carbon-13 isotopic shifts were isolated from the Murchison meteorite (1969).",
+                t1_ev2: "<strong>Hayabusa-2 & OSIRIS-REx probes:</strong> Pristine samples from asteroids Ryugu and Bennu yielded uracil, ribose, and nitrogenous bases under sterile extraction.",
+                t1_ev3: "<strong>Exposure experiments in space:</strong> ISS experiments (Biorisk, Tanpopo) proved bacterial spores and Deinococcus radiodurans withstand raw cosmic vacuum and radiation for over 3 years.",
+                t1_ev4: "<strong>Rosetta probe detections:</strong> Cometary coma analysis of 67P/Churyumov-Gerasimenko identified glycine and phosphorus — indispensable backbones of DNA.",
+
+                t2_badge: "Research Division II",
+                t2_title: "Paleocontact (External Intervention Theory)",
+                t2_subtitle: "Hypothesis of intentional genetic engineering of archaic hominids",
+                t2_author_text: "The theoretical formulation was outlined by Soviet mathematician Matest Agrest (1959). Global prominence was driven by Erich von Däniken ('Chariots of the Gods?', 1968) and Zecharia Sitchin. The hypothesis remains prevalent in pop culture debates examining the rapid cranial capacity expansion in archaic hominids.",
+                t2_hypo_text: "The emergence of modern anatomical humans (Homo sapiens) and the rapid explosion of linguistic and tool-making cognition resulted from intentional genetic manipulation of earthly primates by an advanced extraterrestrial civilization, which allegedly also imparted early astronomical and engineering knowledge.",
+                t2_supp_text: "Within peer-reviewed anthropology, the hypothesis is near-universally rejected: fewer than 1% of professional anthropologists give credence to paleocontact. However, public polling in various nations reveals that 25% to 35% consider paleocontact possible. Mainstream science highlights an uninterrupted fossil record without foreign genomic markers.",
+                t2_quote: "«Extraordinary claims require extraordinary evidence. To attribute ancient human monuments and accomplishments to extraterrestrials is to demean the genuine genius and laborious efforts of humanity.»",
+                t2_quote_author: "— Carl Sagan, Astronomer and Science Communicator",
+                t2_img_placeholder: "[ PHOTO PLACEHOLDER ]",
+                t2_img_title: "Tassili n'Ajjer Rock Art",
+                t2_img_caption: "Rock fresco nicknamed 'The Great Martian God' (Sahara, Algeria) interpreted by paleocontact advocates",
+                t2_ev1: "<strong>Tripling of cranial volume:</strong> The transition from Australopithecus (450 cm³) to Cro-Magnon (1400 cm³) is attributed by proponents to accelerated gene editing.",
+                t2_ev2: "<strong>Helmeted figures in ancient art:</strong> Sahara frescoes (Tassili n'Ajjer), Valcamonica carvings, and Japanese Jōmon Dogū figurines displaying suit-like gear.",
+                t2_ev3: "<strong>Ancient mythological texts:</strong> The Sumerian Enuma Elish narratives of human creation and Sanskrit descriptions of flying vimana vehicles.",
+                t2_ev4: "<strong>Precision megalithic architecture:</strong> Polygonal masonry at Puma Punku, Baalbek terraces, and Giza pyramids with Orion constellation alignment.",
+
+                t3_badge: "Research Division III",
+                t3_title: "Cosmic Evolution & Biospheric Connection",
+                t3_subtitle: "Anthropogenesis as a planetary-cosmic process of noospheric evolution",
+                t3_author_text: "Foundations were laid by Academician Vladimir Vernadsky (creator of biogeochemistry and the noosphere concept), Alexander Chizhevsky (founder of heliobiology), and Konstantin Tsiolkovsky. Today, space weather science and geophysics institutes confirm the synchrony of solar rhythms with terrestrial biophysics.",
+                t3_hypo_text: "Humanity and the biosphere represent an open thermodynamic system continually transforming cosmic energy. Key hominid speciation mutations and cultural transitions were modulated by solar magnetic cycles, galactic cosmic ray influx, and orbital precession.",
+                t3_supp_text: "Over 50% of biophysicists, ecologists, and geochemists acknowledge the profound impact of cosmic cycles on terrestrial evolution. Opponents caution against deterministic 'cosmic fatalism', noting that historical societal developments obey socioeconomic laws.",
+                t3_quote: "«Man on Earth is not an accidental being. Man represents a lawful geological and cosmic agent transforming the biosphere into the noosphere — the realm of reason.»",
+                t3_quote_author: "— Academician Vladimir Vernadsky",
+                t3_img_placeholder: "[ PHOTO PLACEHOLDER ]",
+                t3_img_title: "Heliobiological Rhythms of the Biosphere",
+                t3_img_caption: "Correlation between solar activity cycles and biospheric phenomena according to Chizhevsky",
+                t3_ev1: "<strong>Geomagnetic polarity reversals:</strong> Collapse of the magnetosphere during field reversals (Brunhes-Matuyama 780 kyr ago) triggered cosmic radiation spikes and hominid mutations.",
+                t3_ev2: "<strong>Iron-60 (<sup>60</sup>Fe) stellar isotopes:</strong> Cosmogenic <sup>60</sup>Fe layers in deep-sea sediments prove a nearby supernova explosion ~2.6 Ma ago, coinciding with the onset of the Pleistocene.",
+                t3_ev3: "<strong>Milankovitch orbital cycles:</strong> Orbital eccentricity and axial precession repeatedly caused glacial stress that catalyzed social cohesion and cognitive adaptability in early humans.",
+                t3_ev4: "<strong>Stellar nucleosynthesis:</strong> Every essential heavy element in the human organism (carbon, iron in hemoglobin, calcium in bone) was forged inside primordial dying stars.",
+
+                table_heading: "Вывод (Conclusion)",
+                table_lead: "Comparative epistemic analysis of the three cosmic anthropic paradigms:",
+                th_col0: "Evaluation Criteria",
+                th_col1: "Panspermia Theory",
+                th_col2: "Paleocontact",
+                th_col3: "Cosmic Evolution",
+                tr1_c0: "Scientific Status",
+                tr1_c1: "Recognized astrobiological hypothesis",
+                tr1_c2: "Pseudoscience / fringe speculation",
+                tr1_c3: "Fundamental biogeochemical paradigm",
+                tr2_c0: "Empirical Base",
+                tr2_c1: "Chemical spectroscopy of chondrites and space probes",
+                tr2_c2: "Subjective interpretations of myth and archaeology",
+                tr2_c3: "Isotopic dating, solar physics, and geochronology",
+                tr3_c0: "Major Vulnerability",
+                tr3_c1: "Does not explain the initial abiogenesis mechanism",
+                tr3_c2: "Zero physical or genetic alien material discovered",
+                tr3_c3: "Difficulty distinguishing purely cosmic from endogenous factors",
+                tr4_c0: "Scientific Consensus",
+                tr4_c1: "~50% of astrobiologists / exobiologists",
+                tr4_c2: "&lt;1% of professional anthropologists",
+                tr4_c3: "&gt;50% of biophysicists and geoecologists",
+
+                synth_title: "ЗАКЛЮЧЕНИЕ (CONCLUSION)",
+                synth_p1: "Investigating the cosmic facets of anthropogenesis reveals a profound epistemic divide. While <strong>panspermia</strong> demonstrates the interplanetary delivery of organic polymers, and <strong>cosmic evolution & biospheric coupling</strong> in the work of Vernadsky and Chizhevsky proves the deep dependency of terrestrial life on solar-cosmic cycles, the concept of <strong>paleocontact</strong> remains strictly outside the boundaries of evidence-based science.",
+                synth_p2: "Humanity is genuinely of the Cosmos — not by virtue of ancient alien interventions, but through the elemental kinship of our atoms forged in stellar nucleosynthesis.",
+
+                sources_title: "Academic Literature and Primary Sources",
+                thanks_title: "Thank you for your attention.",
+                project_badge: "Scientific and Educational World History Project by 10th 'B' Grade Students",
+                participants_label: "Participants:",
+                student_1: "Student 1",
+                student_2: "Student 2",
+                student_3: "Student 3",
+                student_4: "Student 4",
+                student_5: "Student 5",
+                student_6: "Student 6",
+                student_7: "Student 7",
+                btn_to_top: "↑ Back to top of research"
+            }
+        };
+
+        function setLanguage(lang) {
+            if (!i18nData[lang]) lang = 'ru';
+            const data = i18nData[lang];
+
+            // 1. Обновляем кнопки переключения
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            const activeBtn = document.getElementById('btn-' + lang);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            // 2. Заголовок документа и шапка
+            document.title = data.docTitle;
+            document.getElementById('doc-title').textContent = data.docTitle;
+            document.getElementById('header-title').textContent = data.headerTitle;
+
+            // 3. Обновляем все элементы с атрибутом data-i18n
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (data[key] !== undefined) {
+                    el.innerHTML = data[key];
+                }
+            });
+
+            // 4. Сохраняем язык
+            try {
+                localStorage.setItem('preferred_history_lang', lang);
+            } catch (e) {}
+        }
+
+        // Автозагрузка языка при открытии
+        window.addEventListener('DOMContentLoaded', () => {
+            let savedLang = 'ru';
+            try {
+                savedLang = localStorage.getItem('preferred_history_lang') || 'ru';
+            } catch(e) {}
+            setLanguage(savedLang);
+        });
+    </script>
 </body>
 </html>
